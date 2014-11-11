@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%= yield_content :page_title %>
+		<link rel="stylesheet" href="/css/bootstrap.css">
+		<%= yield_content :extra_stylesheets %>
+	</head>
+<body>
+	<%= yield %>
+	<script src="js/bootstrap.min.js"></script>
+</body>	
