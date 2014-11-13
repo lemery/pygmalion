@@ -1,0 +1,44 @@
+<% content_for :page_title do %>
+	<title>Edit a Game</title>
+<% end %>
+
+	<form action='/make/game/fate' method='POST'>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">Aspects</div>
+						<div class="panel-body" id="aspects_body">
+                        	<div class="input-group" id="aspectInputGroup0">
+					        	<span class="input-group-addon">Aspect Type</span>
+								<input class='form-control' type='text' name='aspectType0' id="aspectType0"/>
+                                <span class="input-group-btn">
+                                	<button class="btn btn-default" type="button" onClick="removeAspect(0)" id="removeAspectButton0">Remove</button>
+                                </span>
+						    </div>
+                            <button class="btn btn-default" type="button" onclick="addAspect()" id="add_aspect_button">Add an Aspect</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">Skill List</div>
+						<div class="panel-body" id="skills_body">
+                        	<div class="input-group" id="skillInputGroup0">
+					        	<span class="input-group-addon">Skill</span>
+								<input class='form-control' type='text' name='skill0' id="skill0"/>
+                                <span class="input-group-btn">
+                                	<button class="btn btn-default" type="button" onClick="removeSkill(0)" id="removeSkillButton0">Remove</button>
+                                </span>
+						    </div>
+                            <button class="btn btn-default" type="button" onclick="addSkill()" id="add_skill_button">Add a Skill</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+<% content_for :more_js do %>
+	<script src="js/fateGame.js"></script>
+<% end %>

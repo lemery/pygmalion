@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111221719) do
+ActiveRecord::Schema.define(version: 20141111223822) do
+
+  create_table "fate_games", force: true do |t|
+    t.string  "name"
+    t.integer "character_ids"
+    t.integer "player_ids"
+    t.string  "gms"
+    t.boolean "requires_approval"
+    t.string  "skill_list"
+    t.string  "stress_tracks"
+    t.string  "consequences"
+    t.string  "aspects"
+    t.integer "total_refresh"
+  end
 
   create_table "users", force: true do |t|
     t.string  "username"

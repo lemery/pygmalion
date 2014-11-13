@@ -2,12 +2,20 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
 require 'bcrypt'
+require 'better_errors'
 
 Bundler.require
 
 require './models/User'
 
 enable :sessions
+
+configure :development do
+  use BetterErrors::Middleware
+  # you need to set the application root in order to abbreviate filenames
+  # within the application:
+  BetterErrors.application_root = File.expand_path('..', __FILE__)
+end
 
 if ENV['DATABASE_URL']
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
@@ -46,7 +54,7 @@ def log_in (user)
 end
 
 get '/' do
-  erb :index
+  erb :fategame
 end
 
 get '/auth/signup' do
