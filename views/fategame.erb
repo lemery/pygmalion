@@ -2,42 +2,138 @@
 	<title>Edit a Game</title>
 <% end %>
 
+<% content_for :extra_css do %>
+
+
+<% end %>
+
 	<form action='/make/game/fate' method='POST'>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Aspects</div>
-						<div class="panel-body" id="aspects_body">
-                        	<div class="input-group" id="aspectInputGroup0">
-					        	<span class="input-group-addon">Aspect Type</span>
-								<input class='form-control' type='text' name='aspectType0' id="aspectType0"/>
-                                <span class="input-group-btn">
-                                	<button class="btn btn-default" type="button" onClick="removeAspect(0)" id="removeAspectButton0">Remove</button>
-                                </span>
-						    </div>
-                            <button class="btn btn-default" type="button" onclick="addAspect()" id="add_aspect_button">Add an Aspect</button>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Game Name</div>
+							<div class="panel-body" id="game_name_body">
+								<div class="input-group" id="name_input_group">
+									<span class="input-group-addon">Name</span>
+									<input class='form-control' type='text' name='game_name' id="game_name"/> 
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Aspects</div>
+							<div class="panel-body" id="aspects_body">
+								<div class="input-group" id="aspectInputGroup0">
+									<span class="input-group-addon">Aspect Type</span> 
+									<input class='form-control' type='text' name='aspectType0' id="aspectType0" /> 
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button" onClick="removeAspect(0)" id="removeAspectButton0">Remove</button>
+									</span>
+								</div>
+								<button class="btn btn-default" type="button" onclick="addAspect()" id="add_aspect_button">Add an Aspect</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Stress Tracks</div>
+							<div class="panel-body" id="stress_tracks_body">
+								<div class="row" id="stress_track_row_0">
+									<div class="col-lg-6">
+										<div class="input-group">
+											<span class="input-group-addon">Name</span> 
+											<input class="form-control" type="text" name="stressTrack0Name" id="stressTrack0Name" />
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="input-group">
+											<span class="input-group-addon"># of Boxes</span> 
+											<input class="form-control" type="number" name="stressTrack0Size" id="stressTrack0Size" />
+										</div>
+									</div>
+									<div class="col-lg-2">
+										<span class="input-group-btn">
+											<button class="btn btn-default" type="button" onClick="removeTrack(0)" id="removeTrackButton0">Remove</button>
+										</span>
+									</div>
+								</div>
+								<button class="btn btn-default" type="button" onclick="addTrack()" id="add_track_button">Add a Stress Track</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Consequences</div>
+							<div class="panel-body" id="consequences_body">
+								<div class="row" id="consequences_row_0">
+									<div class="col-lg-5">
+										<div class="input-group">
+											<span class="input-group-addon">Group</span>
+											<input class='form-control' type="text" name="consequence_type_0_name" id="consequence_type_0_name"/>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<div class="input-group">
+											<span class="input-group-addon">Sizes</span>
+											<input class="form-control" type="text" name="consequence_type_0_sizes" id="consequence_type_0_sizes"/>
+										</div>
+									</div>
+									<div class="col-lg-2">
+										<span class="input-group-btn">
+											<button class="btn btn-default" type="button" onClick="removeConsequenceType(0)" id="removeConsequenceTypeButton0">Remove</button>
+										</span>
+									</div>
+								</div>
+								<button class="btn btn-default" type="button" onClick="addConsequenceType()" id="add_consequence_type">Add a Consequence Type</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<div class="col-lg-4">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-primary">
+						<div class="panel-heading">PC Refresh</div>
+						<div class="panel-body">
+							<div class="input-group" id="refresh_input_group">
+								<span class="input-group-addon">Refresh</span>
+								<input class="form-control" type="number" name="pc_refresh"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
 					<div class="panel panel-primary">
 						<div class="panel-heading">Skill List</div>
 						<div class="panel-body" id="skills_body">
-                        	<div class="input-group" id="skillInputGroup0">
-					        	<span class="input-group-addon">Skill</span>
-								<input class='form-control' type='text' name='skill0' id="skill0"/>
-                                <span class="input-group-btn">
-                                	<button class="btn btn-default" type="button" onClick="removeSkill(0)" id="removeSkillButton0">Remove</button>
-                                </span>
-						    </div>
-                            <button class="btn btn-default" type="button" onclick="addSkill()" id="add_skill_button">Add a Skill</button>
+							<div class="input-group" id="skillInputGroup0">
+								<span class="input-group-addon">Skill</span> 
+								<input class='form-control' type='text' name='skillName0' id="skillName0"/> 
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" onClick="removeSkill(0)" id="removeSkillButton0">Remove</button>
+								</span>
+							</div>
+							<button class="btn btn-default" type="button" onclick="addSkill()" id="add_skill_button">Add a Skill</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</form>
+	</div>
+</form>
 	
 <% content_for :more_js do %>
 	<script src="js/fateGame.js"></script>
