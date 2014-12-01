@@ -2,7 +2,6 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
 require 'bcrypt'
-require 'better_errors'
 
 Bundler.require
 
@@ -15,6 +14,7 @@ configure :development do
   # you need to set the application root in order to abbreviate filenames
   # within the application:
   BetterErrors.application_root = File.expand_path('..', __FILE__)
+  require 'better_errors'
 end
 
 if ENV['DATABASE_URL']
