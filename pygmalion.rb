@@ -10,11 +10,11 @@ require './models/User'
 enable :sessions
 
 configure :development do
+  require 'better_errors'
   use BetterErrors::Middleware
   # you need to set the application root in order to abbreviate filenames
   # within the application:
   BetterErrors.application_root = File.expand_path('..', __FILE__)
-  require 'better_errors'
 end
 
 if ENV['DATABASE_URL']
