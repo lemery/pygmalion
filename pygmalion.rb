@@ -85,10 +85,14 @@ get '/auth/login' do
 end
 
 post '/auth/login' do
-  login_attempt = User.find_by_username!("#{params[:user_name]}")
-  if login_attempt.password == "#{params[:password_attempt]}"
-    log_in(login_attempt)
-    redirect to("/")
+  if User.exists?("#{params[:user_name]}")
+    login_attempt = User.find_by_username!("#{params[:user_name]}")
+    if login_attempt.password == "#{params[:password_attempt]}"
+      log_in(login_attempt)
+      redirect to("/")
+    else
+      redirect to('/auth/login')
+    end
   else
     flash[:incorrect] = "Username or password invalid"
     redirect to('/auth/login')

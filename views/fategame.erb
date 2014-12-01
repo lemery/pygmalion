@@ -1,13 +1,11 @@
 <% content_for :page_title do %>
-	<title>Edit a Game</title>
+<title>Edit a Game</title>
 <% end %>
 
 <% content_for :extra_css do %>
-
-
 <% end %>
 
-	<form action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi" method='POST'>
+	<form action="/make/game/fate" method='POST'>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-5">
@@ -17,8 +15,7 @@
 							<div class="panel-heading">Game Name</div>
 							<div class="panel-body" id="game_name_body">
 								<div class="input-group" id="name_input_group">
-									<span class="input-group-addon">Name</span>
-									<input class='form-control' type='text' name='game_name' id="game_name"/> 
+									<span class="input-group-addon">Name</span> <input class='form-control' type='text' name='game_name' id="game_name" />
 								</div>
 							</div>
 						</div>
@@ -41,9 +38,8 @@
 							<div class="panel-heading">Aspects</div>
 							<div class="panel-body" id="aspects_body">
 								<div class="input-group" id="aspect_input_group_0">
-									<span class="input-group-addon">Aspect Type</span> 
-									<input class='form-control' type='text' name='aspect_type_0' id="aspect_type_0" /> 
-									<span class="input-group-btn">
+									<span class="input-group-addon">Aspect Type</span> <input class='form-control' type='text' name='aspect_type_0' id="aspect_type_0" /> <span
+										class="input-group-btn">
 										<button class="btn btn-default" type="button" onClick="removeAspect(0)" id="remove_aspect_0_button">Remove</button>
 									</span>
 								</div>
@@ -61,20 +57,17 @@
 								<div class="row" id="stress_track_row_0">
 									<div class="col-lg-3">
 										<div class="input-group">
-											<span class="input-group-addon">Name</span> 
-											<input class="form-control" type="text" name="stress_track_0_name" id="stress_track_0_name" />
+											<span class="input-group-addon">Name</span> <input class="form-control" type="text" name="stress_track_0_name" id="stress_track_0_name" />
 										</div>
 									</div>
 									<div class="col-lg-3">
 										<div class="input-group">
-											<span class="input-group-addon">Boxes</span> 
-											<input class="form-control" type="number" name="stress_track_0_size" id="stress_track_0_size" />
+											<span class="input-group-addon">Boxes</span> <input class="form-control" type="number" name="stress_track_0_size" id="stress_track_0_size" />
 										</div>
 									</div>
 									<div class="col-lg-4">
 										<div class="input-group">
-											<span class="input-group-addon">Skill</span>
-											<input class="form-control" type="text" name="stress_track_0_skill" id="stress_track_0_skill"/>
+											<span class="input-group-addon">Skill</span> <input class="form-control" type="text" name="stress_track_0_skill" id="stress_track_0_skill" />
 										</div>
 									</div>
 									<div class="col-lg-2">
@@ -97,14 +90,14 @@
 								<div class="row" id="consequences_row_0">
 									<div class="col-lg-5">
 										<div class="input-group">
-											<span class="input-group-addon">Group</span>
-											<input class='form-control' type="text" name="consequence_type_0_name" id="consequence_type_0_name"/>
+											<span class="input-group-addon">Group</span> <input class='form-control' type="text" name="consequence_type_0_name"
+												id="consequence_type_0_name" />
 										</div>
 									</div>
 									<div class="col-lg-5">
 										<div class="input-group">
-											<span class="input-group-addon">Sizes</span>
-											<input class="form-control" type="text" name="consequence_type_0_sizes" id="consequence_type_0_sizes"/>
+											<span class="input-group-addon">Sizes</span> <input class="form-control" type="text" name="consequence_type_0_sizes"
+												id="consequence_type_0_sizes" />
 										</div>
 									</div>
 									<div class="col-lg-2">
@@ -120,163 +113,154 @@
 					</div>
 				</div>
 			</div>
-		<div class="col-lg-4">
-			<div class="row">
-				<div class="col-lg-5">
-					<div class="panel panel-primary">
-						<div class="panel-heading">PC Refresh</div>
-						<div class="panel-body">
-							<div class="input-group" id="refresh_input_group">
-								<span class="input-group-addon">Base Refresh</span>
-								<input class="form-control" type="number" name="pc_refresh" id="pc_refresh"/>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-7">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Stunts</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-lg-6">
-									<div class="input-group" id="stunt_input_group">
-										<span class="input-group-addon">Min</span>
-										<input class="form-control" type="number" name="num_stunts" id="num_stunts"/>
-									</div>
-								</div>
-								<div class="col-lg-6">
-									<div class="input-group" id="max_stunt_input_group">
-										<span class="input-group-addon">Max</span>
-										<input class="form-control" type="number" name="num_max_stunts" id="num_max_stunts"/>
-									</div>
+			<div class="col-lg-4">
+				<div class="row">
+					<div class="col-lg-5">
+						<div class="panel panel-primary">
+							<div class="panel-heading">PC Refresh</div>
+							<div class="panel-body">
+								<div class="input-group" id="refresh_input_group">
+									<span class="input-group-addon">Base Refresh</span> <input class="form-control" type="number" name="pc_refresh" id="pc_refresh" />
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-7">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Skill Arrangement</div>
-						<div class="panel-body">
-							<button type="button" class="btn btn-default dropdown" data-toggle="dropdown" aria-expanded="false" id="skill_arrangement_dropdown">
-								<input type="hidden" id="skill_arrangement" name="skill_arrangement" value="Pyramid">
-								<span id="arrangement_top_label">Pyramid</span>
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" role="menu">
-								<li><a onClick="skillArrangementChange('Pyramid')" href="#">Pyramid</a></li>
-								<li><a onClick="skillArrangementChange('Columns')" href="#">Columns</a></li>
-								<li><a onClick="skillArrangementChange('Free')" href="#">Free</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-5">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Skill Points</div>
-						<div class="panel-body">
-							<div class="input-group" id="skill_points_input_group">
-								<span class ="input-group-addon">#</span>
-								<input class="form-control" type="number" name="num_skill_points" id="num_skill_points"/>
+					<div class="col-lg-7">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Stunts</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="input-group" id="stunt_input_group">
+											<span class="input-group-addon">Min</span> <input class="form-control" type="number" name="num_stunts" id="num_stunts" />
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="input-group" id="max_stunt_input_group">
+											<span class="input-group-addon">Max</span> <input class="form-control" type="number" name="num_max_stunts" id="num_max_stunts" />
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Skill List</div>
-						<div class="panel-body" id="skills_body">
-							<div class="input-group" id="skill_input_group_0">
-								<span class="input-group-addon">Skill</span> 
-								<input class='form-control' type='text' name='skill_name_0' id="skill_name_0"/> 
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" onClick="removeSkill(0)" id="remove_skill_0_button">Remove</button>
-								</span>
-							</div>
-							<button class="btn btn-default" type="button" onclick="addSkill()" id="add_skill_button">Add a Skill</button>
-							<input type="hidden" name="num_skills" id="num_skills" value="1">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-3">
-			<div class="row">
-				<div class="col-lg-7">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Presets</div>
-						<div class="panel-body" id="presets_body">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown" data-toggle="dropdown" aria-expanded="false" id="presets_dropdown_button">
-									<span id="presets_top_label">(None)</span>
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Skill Arrangement</div>
+							<div class="panel-body">
+								<button type="button" class="btn btn-default dropdown" data-toggle="dropdown" aria-expanded="false" id="skill_arrangement_dropdown">
+									<input type="hidden" id="skill_arrangement" name="skill_arrangement" value="Pyramid"> <span id="arrangement_top_label">Pyramid</span>
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu">
-									<li onclick="replacePresetsLabel('(None)')"><a href="#">(None)</a></li>
-									<li onclick="fateCorePreset()"><a href="#">Fate Core</a></li>
-									<li onclick="replacePresetsLabel('Dresden Files')"><a id="dresden_files_preset" href="#">Dresden Files</a></li>
+									<li><a onClick="skillArrangementChange('Pyramid')" href="#">Pyramid</a></li>
+									<li><a onClick="skillArrangementChange('Columns')" href="#">Columns</a></li>
+									<li><a onClick="skillArrangementChange('Free')" href="#">Free</a></li>
 								</ul>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-lg-5">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Requires Approval?</div>
-						<div class="panel-body" id="requires_approval_body">
-							<label class="radio-inline"><input type="radio" name="requires_approval" value="Yes">Yes</label>
-							<label class="radio-inline"><input type="radio" name="requires_approval" value="No" checked>No</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-primary">
-						<div class="panel-heading">GMs</div>
-						<div class="panel-body" id="gms_body">
-							<div class="input-group" id="gm_input_group_0">
-								<span class="input-group-addon">Username</span>
-								<input class="form-control" type="text" name="gm_username_0" id="gm_username_0"/>
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" onClick="removeGM(0)" id="remove_gm_0_button">Remove</button>
-								</span>
+					<div class="col-lg-5">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Skill Points</div>
+							<div class="panel-body">
+								<div class="input-group" id="skill_points_input_group">
+									<span class="input-group-addon">#</span> <input class="form-control" type="number" name="num_skill_points" id="num_skill_points" />
+								</div>
 							</div>
-							<button class="btn btn-default" type="button" onClick="addGM()" id="add_gm_button">Add a GM</button>
-							<input type="hidden" name="num_gms" id="num_gms" value="1">
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Players</div>
-						<div class="panel-body" id="players_body">
-							<div class="input-group" id="player_input_group_">
-								<span class="input-group-addon">Username</span>
-								<input class="form-control" type="text" name="player_username_0" id="player_username_0"/>
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" onClick="removePlayer(0)" id="remove_player_0_button">Remove</button>
-								</span>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Skill List</div>
+							<div class="panel-body" id="skills_body">
+								<div class="input-group" id="skill_input_group_0">
+									<span class="input-group-addon">Skill</span> <input class='form-control' type='text' name='skill_name_0' id="skill_name_0" /> <span
+										class="input-group-btn">
+										<button class="btn btn-default" type="button" onClick="removeSkill(0)" id="remove_skill_0_button">Remove</button>
+									</span>
+								</div>
+								<button class="btn btn-default" type="button" onclick="addSkill()" id="add_skill_button">Add a Skill</button>
+								<input type="hidden" name="num_skills" id="num_skills" value="1">
 							</div>
-							<button class="btn btn-default" type="button" onClick="addPlayer()" id="add_player_button">Add a Player</button>
-							<input type="hidden" name="num_players" id="num_players" value="1">
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="input-group">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">Save</button>
+			<div class="col-lg-3">
+				<div class="row">
+					<div class="col-lg-7">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Presets</div>
+							<div class="panel-body" id="presets_body">
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown" data-toggle="dropdown" aria-expanded="false" id="presets_dropdown_button">
+										<span id="presets_top_label">(None)</span> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+										<li onclick="replacePresetsLabel('(None)')"><a href="#">(None)</a></li>
+										<li onclick="fateCorePreset()"><a href="#">Fate Core</a></li>
+										<li onclick="replacePresetsLabel('Dresden Files')"><a id="dresden_files_preset" href="#">Dresden Files</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-5">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Requires Approval?</div>
+							<div class="panel-body" id="requires_approval_body">
+								<label class="radio-inline"><input type="radio" name="requires_approval" value="Yes">Yes</label> <label class="radio-inline"><input
+									type="radio" name="requires_approval" value="No" checked>No</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">GMs</div>
+							<div class="panel-body" id="gms_body">
+								<div class="input-group" id="gm_input_group_0">
+									<span class="input-group-addon">Username</span> <input class="form-control" type="text" name="gm_username_0" id="gm_username_0" /> <span
+										class="input-group-btn">
+										<button class="btn btn-default" type="button" onClick="removeGM(0)" id="remove_gm_0_button">Remove</button>
+									</span>
+								</div>
+								<button class="btn btn-default" type="button" onClick="addGM()" id="add_gm_button">Add a GM</button>
+								<input type="hidden" name="num_gms" id="num_gms" value="1">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Players</div>
+							<div class="panel-body" id="players_body">
+								<div class="input-group" id="player_input_group_">
+									<span class="input-group-addon">Username</span> <input class="form-control" type="text" name="player_username_0" id="player_username_0" /> <span
+										class="input-group-btn">
+										<button class="btn btn-default" type="button" onClick="removePlayer(0)" id="remove_player_0_button">Remove</button>
+									</span>
+								</div>
+								<button class="btn btn-default" type="button" onClick="addPlayer()" id="add_player_button">Add a Player</button>
+								<input type="hidden" name="num_players" id="num_players" value="1">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<span class="input-group"> <span class="input-group-btn">
+								<button class="btn btn-default" type="submit">Save</button>
 						</span>
-					</span>
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -284,5 +268,5 @@
 </form>
 	
 <% content_for :more_js do %>
-	<script src="js/fateGame.js"></script>
+<script src="js/fateGame.js"></script>
 <% end %>

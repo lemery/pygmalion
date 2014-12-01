@@ -5,8 +5,73 @@
 		<link rel="stylesheet" href="/css/bootstrap.css">
 		<%= yield_content :extra_stylesheets %>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<style>
+			body {
+				max-width: none;
+				color: #929696;
+				background-color: #1B1B1B;
+			}
+			.navbar {
+				max-width: none;
+				background-color: #1A5086;
+			}
+			.navbar-right {
+				margin-right: 15px;
+			}
+			.navbar-nav li a {
+				color: #FFFFFF;
+			}
+			.navbar-nav li a:hover {
+				color: #12375B;
+			}
+			.panel {
+				background-color: #2A2A2A;
+				border: 2px solid transparent;
+			}
+			.panel-primary > .panel-heading {
+				background-color: #103156;
+				border-color: #103156;
+			}
+			.panel-primary {
+				border-color: #103156;
+			}
+			.form-control {
+				background-color: #1E1F20;
+				color: #b9bcbc;
+				border-color: #747474;
+			}
+			.btn-default {
+				background-color: #747474;
+				border-color: #747474;
+				color: #FFFFFF;
+			}
+			.input-group-addon {
+				background-color: #747474;
+				border-color: #747474;
+				color: #FFFFFF;
+			}
+			.input-group {
+				margin-bottom: 2px;
+			}
+			.radio-inline {
+				color: #B9BCBC;
+			}
+			<%= yield_content :extra_css %>
+		</style>
 	</head>
 <body>
+	<nav class="navbar" role="navigation">
+		<ul class="nav navbar-nav">
+			<li><a href='/view/games'>Games</a></li>
+			<li><a href="/view/characters">Characters</a></li>
+		</ul>
+			<% if logged_in? %> 
+			<p class="navbar-text navbar-right">Signed in as <%= username %><br>
+				<a href="/auth/logout">Log Out?</a></p>
+			<% else %>	
+			<p class="navbar-text navbar-right pull-right"><a href="/auth/login">Log in</a> or <a href="/auth/signup">Register</a></p>
+    		<% end %> 
+	</nav>
 	<%= yield %>
 	<script src="js/bootstrap.min.js"></script>
 	<%= yield_content :more_js %>
