@@ -12,8 +12,9 @@ class CreateFateGames < ActiveRecord::Migration
       t.boolean :requires_approval
       # Array of skill names
       t.string :skill_list
-      # Hash names of stress tracks and default sizes
-      # Ex, might contain {"Physical" => 2, "Mental" => 2}
+      # Hash of hashes; stress tracks, default sizes, and related skills
+      # Ex, might contain {"Physical" => {"Size" => 2, "Skill" => "Physique"},
+      #                    "Mental" => {"Size" => 2, "Skill" => "Will"}
       t.string :stress_tracks
       # Hash of names of default consequences and an array of sizes
       # Ex. a Dresden game would have {"Physical" => [-2, -4, -6, -8], "Mental" => [-2, -4, -6, -8], 
@@ -24,6 +25,14 @@ class CreateFateGames < ActiveRecord::Migration
       t.string :aspects
       # Int of the total refresh for PCs in the game
       t.integer :total_refresh
+      # Int of the minimum number of stunts for PCs in the game
+      t.integer :stunts
+      #Int of the maximum number of stunts for PCs in the game
+      t.integer :max_stunts
+      # Int of the base PC number of skill points
+      t.integer :skill_points
+      # String of the skill arrangement requirement. Can be Pyramid, Column, or Free
+      t.string :skill_arrangement
       end
   end
 end

@@ -1,4 +1,4 @@
-class FateGames < ActiveRecord::Base
+class FateGame < ActiveRecord::Base
   serialize :character_ids
   serialize :player_ids
   serialize :gms

@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 20141111223822) do
     t.string  "consequences"
     t.string  "aspects"
     t.integer "total_refresh"
+    t.integer "stunts"
+    t.integer "max_stunts"
+    t.integer "skill_points"
+    t.string  "skill_arrangement"
   end
 
   create_table "users", force: true do |t|
