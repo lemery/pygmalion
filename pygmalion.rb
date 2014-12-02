@@ -6,6 +6,7 @@ require 'bcrypt'
 Bundler.require
 
 require './models/User'
+require './models/FateGame'
 
 enable :sessions
 
@@ -54,7 +55,8 @@ def log_in (user)
 end
 
 get '/' do
-  erb :fategame
+  redirect to("make/game/fate")
+  erb :fatechar
 end
 
 get '/auth/signup' do
@@ -85,7 +87,7 @@ get '/auth/login' do
 end
 
 post '/auth/login' do
-  if User.exists?("#{params[:user_name]}")
+  if User.exists?(:username => "#{params[:user_name]}")
     login_attempt = User.find_by_username!("#{params[:user_name]}")
     if login_attempt.password == "#{params[:password_attempt]}"
       log_in(login_attempt)
@@ -108,6 +110,11 @@ end
 
 get '/auth/restricted' do
   erb :restricted
+end
+
+get '/make/game/fate' do
+  @task = "Make"
+  erb :fategame
 end
 
 post '/make/game/fate' do
@@ -134,7 +141,7 @@ post '/make/game/fate' do
     for i in 0...num_stress_tracks
       tnames = ["stress_track_" + i.to_s + "_name", "stress_track_" + i.to_s + "_size", "stress_track_" + i.to_s + "_skill"]
       temp_hash = {"Size" => params[tnames[1]].to_i, "Skill" => params[tnames[2]].to_s}
-      stress_tracks_hash[tnames[0]] = temp_hash
+      stress_tracks_hash[params[tnames[0]]] = temp_hash
     end
     game.stress_tracks = stress_tracks_hash
     # Consequences. Gets the number of consequence types, generates keys from that. For each consequence type, converts the size string to an array of ints, then hashes everything
@@ -144,12 +151,12 @@ post '/make/game/fate' do
     num_consequences = params[:num_consequence_types].to_i
     consequences_hash = {}
     for i in 0...num_consequences
-      tnames = ["consequence_type_" + i + "_name", "consequence_type_" + i + "_size"]
+      tnames = ["consequence_type_" + i.to_s + "_name", "consequence_type_" + i.to_s + "_sizes"]
       size_arr = params[tnames[1]].to_s.split(', ')
       for i in 0...size_arr.length
         size_arr[i] = size_arr[i].to_i
       end
-      consequences_hash[tnames[0]] = size_arr
+      consequences_hash[params[tnames[0]]] = size_arr
     end
     game.consequences = consequences_hash
     # Refresh
@@ -159,7 +166,7 @@ post '/make/game/fate' do
     game.max_stunts = params[:num_max_stunts].to_i || game.total_refresh
     # Skills
     game.skill_arrangement = params[:skill_arrangement].to_s
-    game.skill_points = params[:skill_points].to_i
+    game.skill_points = params[:num_skill_points].to_i
     num_skills = params[:num_skills].to_i
     skills_array = []
     for i in 0...num_skills
@@ -168,7 +175,7 @@ post '/make/game/fate' do
     end
     game.skill_list = skills_array
     # GMs
-    num_gms = params[:num_gms]
+    num_gms = params[:num_gms].to_i
     gms_array = []
     for i in 0...num_gms
       temp_string = "gm_username_" + i.to_s
@@ -178,7 +185,7 @@ post '/make/game/fate' do
     end
     game.gms = gms_array
     # Players
-    num_players = params[:num_players]
+    num_players = params[:num_players].to_i
     players_array = []
     for i in 0...num_players
       temp_string = "player_username_" + i.to_s
@@ -195,7 +202,28 @@ post '/make/game/fate' do
     else
       game.requires_approval = false
     end
+    redirect_url = "/view/games/fate/" + game.name
+    game.save
+    redirect to(redirect_url)
   else 
     restricted  
   end
+end
+
+get '/view/games/fate/:gamename' do
+  if (FateGame.exists?(:name => "#{params[:gamename]}"))
+    @task = "View"
+    @game = FateGame.where(name: "#{params[:gamename]}").first()
+  else
+    @name = "\"#{params[:gamename]}\""
+    erb :nogame
+  end
+  erb :fategame
+end
+
+get '/view/games' do
+  @system_names = ["Fate"]
+  @games = []
+  @games.push(FateGame.count > 0 ? FateGame.order(:name).limit(10) : false)
+  erb :viewgames
 end

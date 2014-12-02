@@ -3,9 +3,35 @@
 <% end %>
 
 <% content_for :extra_css do %>
+<% if @task == "View" %>
+.panel-body {
+	color: #FFFFFF;
+}
+<% end %>
+.table {
+	margin-bottom: 0px;
+}
+.table-bordered {
+	border: 1px solid #1E3E5D;
+	background-color: #1E3E5D;
+}
+.nav-pills > li > a {
+	margin-left: 7px;
+	margin-right: 7px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	background-color: #1B1B1B;
+	color: #FFFFFF;
+	border: 2px solid #1A5086;
+}
+.nav-pills > li > a:hover {
+	background-color: #1B1B1B;
+}
 <% end %>
 
+<% if @task == "Make" %>
 	<form action="/make/game/fate" method='POST'>
+<% end %>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-5">
@@ -19,9 +45,14 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">Game Name</div>
 											<div class="panel-body" id="game_name_body">
+<% if @task == "Make" %>											
 												<div class="input-group" id="name_input_group">
 													<span class="input-group-addon">Name</span> <input class='form-control' type='text' name='game_name' id="game_name" />
 												</div>
+<% end %>
+<% if @task == "View" %>
+								<%= @game.name %>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -29,15 +60,21 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">Setting</div>
 											<div class="panel-body">
+<% if @task == "Make" %>
 												<div class="input-group" id="setting_name">
 													<div class="input-group-addon">Name</div>
 													<input class="form-control" type="text" name="setting_name">
 												</div>
+<% end %>
+<% if @task == "View" %>
+								<%= @game.setting_name %>
+<% end %>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="row">
+<% if @task == "Make" %>
 									<div class="col-lg-8">
 										<div class="panel panel-primary">
 											<div class="panel-heading">Aspects</div>
@@ -51,7 +88,7 @@
 												<button class="btn btn-default" type="button" onclick="addAspect()" id="add_aspect_button">Add an Aspect</button>
 												<input type="hidden" name="num_aspects" id="num_aspects" value="1">
 											</div>
-										</div>
+										</div>										
 									</div>
 									<div class="col-lg-4">
 										<div class="panel panel-primary">
@@ -70,6 +107,23 @@
 											</div>
 										</div>
 									</div>
+<% end %>
+<% if @task == "View" %>
+						<div class="col-lg-12">
+							<div class="panel panel-primary">
+								<div class="panel-heading">Aspects</div>
+								<div class="panel-body" id="aspects_body">
+									<table class="table table-bordered">
+									<% for i in 0...@game.aspects.length %>
+										<tr>
+											<td><%= @game.aspects[i] %></td>
+										</tr>
+									<% end %>
+									</table>
+								</div>
+								</div>
+						</div>
+<% end %>
 								</div>
 							</div>
 						</div>
@@ -85,6 +139,7 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">Stress Tracks</div>
 											<div class="panel-body" id="stress_tracks_body">
+<% if @task == "Make" %>
 												<div class="row" id="stress_track_row_0">
 													<div class="col-lg-3">
 														<div class="input-group">
@@ -109,6 +164,40 @@
 												</div>
 												<button class="btn btn-default" type="button" onclick="addTrack()" id="add_track_button">Add a Stress Track</button>
 												<input type="hidden" name="num_stress_tracks" id="num_stress_tracks" value="1">
+<% end %>
+<% if @task == "View" %>
+												<div>
+													<ul class="nav nav-tabs" data-tabs="tabs">
+													<% keys = @game.stress_tracks.keys %>
+													<% for i in 0...keys.length %>
+														<% t = keys[i] %>
+														<li <%= i == 0 ? "class=\"active\"" : "" %>>
+															<a data-toggle="tab" href=<%= "\"#" + t + "\"" %>>
+																<%= t %>
+															</a>
+														</li>
+													<% end %>
+													</ul>
+														<div class="tab-content">
+														<% for i in 0...keys.length %>
+															<% t = @game.stress_tracks[keys[i]] %>
+															<div class=<%= i == 0 ? "\"tab-pane active fade in\"" : "\"tab-pane fade\"" %> id=<%= "\"" + keys[i] + "\"" %>>
+																<br>
+																<div class="panel panel-primary">
+																	<div class="panel-heading">Governed by 	<%= t["Skill"] %></div>
+																	<div class="panel-body">
+																		<ul class = "nav nav-pills">
+																		<% for f in 0...t["Size"] %>
+																		<li role="presentation"><a><%= "-" + (f+1).to_s %></a></li>
+																		<% end %>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														<% end %>
+														</div>
+												</div>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -118,6 +207,7 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">Consequence Types</div>
 											<div class="panel-body" id="consequences_body">
+<% if @task == "Make" %>
 												<div class="row" id="consequences_row_0">
 													<div class="col-lg-5">
 														<div class="input-group">
@@ -139,6 +229,111 @@
 												</div>
 												<button class="btn btn-default" type="button" onClick="addConsequenceType()" id="add_consequence_type_button">Add a Consequence Type</button>
 												<input type="hidden" name="num_consequence_types" id="num_consequence_types" value="1">
+<% end %>
+<% if @task == "View" %>
+												<div>
+													<ul class="nav nav-tabs" data-tabs="tabs">
+													<% keys = @game.consequences.keys %>
+													<% for i in 0...keys.length %>
+														<% t = keys[i] %>
+														<li <%= i == 0 ? "class=\"active\"" : "" %>>
+															<a data-toggle="tab" href=<%= "\"#" + t.gsub(/\s+/, "") + "\"" %>>
+																<%= t %>
+															</a>
+														</li>
+													<% end %>
+													</ul>
+														<div class="tab-content">
+														<% for i in 0...keys.length %>
+															<% t = @game.consequences[keys[i]] %>
+															<div class=<%= i == 0 ? "\"tab-pane active fade in\"" : "\"tab-pane fade\"" %> id=<%= "\"" + keys[i].gsub(/\s+/, "") + "\"" %>>
+															<ul class = "nav nav-pills">
+															<% for f in 0...t.length %>
+																<li role="presentation"><a><%= t[f] %></a></li>
+															<% end %>
+															</ul>
+															</div>
+														<% end %>
+														</div>
+												</div>
+<% end %>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-primary super-panel">
+							<div class="panel-heading">Skills</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-7">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Skill Arrangement</div>
+											<div class="panel-body">
+<% if @task == "Make" %>
+												<button type="button" class="btn btn-default dropdown" data-toggle="dropdown" aria-expanded="false" id="skill_arrangement_dropdown">
+													<input type="hidden" id="skill_arrangement" name="skill_arrangement" value="Pyramid"> <span id="arrangement_top_label">Pyramid</span>
+													<span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu" role="menu">
+													<li><a onClick="skillArrangementChange('Pyramid')" href="#">Pyramid</a></li>
+													<li><a onClick="skillArrangementChange('Columns')" href="#">Columns</a></li>
+													<li><a onClick="skillArrangementChange('Free')" href="#">Free</a></li>
+												</ul>
+<% end %>
+<% if @task == "View" %>
+												<%= @game.skill_arrangement %>
+<% end %>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-5">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Skill Points</div>
+											<div class="panel-body">
+<% if @task == "Make" %>											
+												<div class="input-group" id="skill_points_input_group">
+													<span class="input-group-addon">#</span> <input class="form-control" type="number" name="num_skill_points" id="num_skill_points" />
+												</div>
+<% end %>
+<% if @task == "View" %>
+												<%= @game.skill_points %>
+<% end %>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Skill List</div>
+											<div class="panel-body" id="skills_body">
+<% if @task == "Make" %>
+												<div class="input-group" id="skill_input_group_0">
+													<span class="input-group-addon">Skill</span> <input class='form-control' type='text' name='skill_name_0' id="skill_name_0" /> <span
+														class="input-group-btn">
+														<button class="btn btn-default" type="button" onClick="removeSkill(0)" id="remove_skill_0_button">Remove</button>
+													</span>
+												</div>
+												<button class="btn btn-default" type="button" onclick="addSkill()" id="add_skill_button">Add a Skill</button>
+												<input type="hidden" name="num_skills" id="num_skills" value="1">
+<% end %>
+<% if @task == "View" %>
+												<table class="table table-bordered">
+												<% for i in 0...@game.skill_list.length %>
+													<tr>
+														<td><%= @game.skill_list[i] %></td>
+													</tr>
+												<% end %>
+												</table>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -159,9 +354,14 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">PC Refresh</div>
 											<div class="panel-body">
+<% if @task == "Make" %>
 												<div class="input-group" id="refresh_input_group">
 													<span class="input-group-addon">Base Refresh</span> <input class="form-control" type="number" name="pc_refresh" id="pc_refresh" />
 												</div>
+<% end %>
+<% if @task == "View" %>
+												<%= @game.total_refresh %>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -169,6 +369,7 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">Stunts</div>
 											<div class="panel-body">
+<% if @task == "Make" %>
 												<div class="row">
 													<div class="col-lg-6">
 														<div class="input-group" id="stunt_input_group">
@@ -181,6 +382,10 @@
 														</div>
 													</div>
 												</div>
+<% end %>
+<% if @task == "View" %>
+											Minimum: <%= @game.stunts %><br>Maximum: <%= @game.max_stunts %>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -189,62 +394,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="panel panel-primary super-panel">
-							<div class="panel-heading">Skills</div>
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-lg-7">
-										<div class="panel panel-primary">
-											<div class="panel-heading">Skill Arrangement</div>
-											<div class="panel-body">
-												<button type="button" class="btn btn-default dropdown" data-toggle="dropdown" aria-expanded="false" id="skill_arrangement_dropdown">
-													<input type="hidden" id="skill_arrangement" name="skill_arrangement" value="Pyramid"> <span id="arrangement_top_label">Pyramid</span>
-													<span class="caret"></span>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li><a onClick="skillArrangementChange('Pyramid')" href="#">Pyramid</a></li>
-													<li><a onClick="skillArrangementChange('Columns')" href="#">Columns</a></li>
-													<li><a onClick="skillArrangementChange('Free')" href="#">Free</a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-5">
-										<div class="panel panel-primary">
-											<div class="panel-heading">Skill Points</div>
-											<div class="panel-body">
-												<div class="input-group" id="skill_points_input_group">
-													<span class="input-group-addon">#</span> <input class="form-control" type="number" name="num_skill_points" id="num_skill_points" />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-12">
-										<div class="panel panel-primary">
-											<div class="panel-heading">Skill List</div>
-											<div class="panel-body" id="skills_body">
-												<div class="input-group" id="skill_input_group_0">
-													<span class="input-group-addon">Skill</span> <input class='form-control' type='text' name='skill_name_0' id="skill_name_0" /> <span
-														class="input-group-btn">
-														<button class="btn btn-default" type="button" onClick="removeSkill(0)" id="remove_skill_0_button">Remove</button>
-													</span>
-												</div>
-												<button class="btn btn-default" type="button" onclick="addSkill()" id="add_skill_button">Add a Skill</button>
-												<input type="hidden" name="num_skills" id="num_skills" value="1">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-primary super-panel">
@@ -255,8 +404,13 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">Requires GM Approval to Join?</div>
 											<div class="panel-body" id="requires_approval_body">
+<% if @task == "Make" %>
 												<label class="radio-inline"><input type="radio" name="requires_approval" value="Yes">Yes</label> <label class="radio-inline"><input
 													type="radio" name="requires_approval" value="No" checked>No</label>
+<% end %>
+<% if @task == "View" %>
+											<%= @game.requires_approval ? "Yes" : "No" %>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -266,6 +420,7 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">GMs</div>
 											<div class="panel-body" id="gms_body">
+<% if @task == "Make" %>
 												<div class="input-group" id="gm_input_group_0">
 													<span class="input-group-addon">Username</span> <input class="form-control" type="text" name="gm_username_0" id="gm_username_0" /> <span
 														class="input-group-btn">
@@ -274,6 +429,12 @@
 												</div>
 												<button class="btn btn-default" type="button" onClick="addGM()" id="add_gm_button">Add a GM</button>
 												<input type="hidden" name="num_gms" id="num_gms" value="1">
+<% end %>
+<% if @task == "View" %>
+											<% for i in 0...@game.gms.length %>
+												<%= i > 0 ? User.find_by(id: @game.gms[i]).username + "<br>" : User.find_by(id: @game.gms[i].username) %>	
+											<% end %>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -283,6 +444,7 @@
 										<div class="panel panel-primary">
 											<div class="panel-heading">Players</div>
 											<div class="panel-body" id="players_body">
+<% if @task == "Make" %>
 												<div class="input-group" id="player_input_group_">
 													<span class="input-group-addon">Username</span> <input class="form-control" type="text" name="player_username_0" id="player_username_0" /> <span
 														class="input-group-btn">
@@ -291,6 +453,12 @@
 												</div>
 												<button class="btn btn-default" type="button" onClick="addPlayer()" id="add_player_button">Add a Player</button>
 												<input type="hidden" name="num_players" id="num_players" value="1">
+<% end %>
+<% if @task == "View" %>
+											<% for i in 0...@game.player_ids.length %>
+												<%= i > 0 ? User.find_by(id: @game.player_ids[i]).username + "<br>" : User.find_by(id: @game.player_ids[i].username) %>	
+											<% end %>
+<% end %>
 											</div>
 										</div>
 									</div>
@@ -299,6 +467,7 @@
 						</div>
 					</div>
 				</div>
+<% if @task == "Make" %>
 				<div class="row">
 					<div class="col-lg-12">
 						<span class="input-group"> <span class="input-group-btn">
@@ -307,11 +476,14 @@
 						</span>
 					</div>
 				</div>
+<% end %>
 			</div>
 		</div>
 	</div>
+<% if @task == "Make" %>
 </form>
+<% end %>
 	
 <% content_for :more_js do %>
-<script src="js/fateGame.js"></script>
+<script src="/js/fateGame.js"></script>
 <% end %>

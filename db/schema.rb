@@ -15,8 +15,9 @@ ActiveRecord::Schema.define(version: 20141111223822) do
 
   create_table "fate_games", force: true do |t|
     t.string  "name"
-    t.integer "character_ids"
-    t.integer "player_ids"
+    t.string  "setting_name"
+    t.string  "character_ids"
+    t.string  "player_ids"
     t.string  "gms"
     t.boolean "requires_approval"
     t.string  "skill_list"

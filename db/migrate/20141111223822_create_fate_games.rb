@@ -1,12 +1,15 @@
 class CreateFateGames < ActiveRecord::Migration
   def change
     create_table :fate_games do |t|
+      # Game Name
       t.string :name
+      # Setting Name
+      t.string :setting_name
       # Array of character primary keys
-      t.integer :character_ids
+      t.string :character_ids
       # Array of player primary keys
-      t.integer :player_ids
-      # Array of GM names
+      t.string :player_ids
+      # Array of GM user ids
       t.string :gms
       # Boolean; whether or not the game requires GM approval to add yourself to
       t.boolean :requires_approval
@@ -33,6 +36,6 @@ class CreateFateGames < ActiveRecord::Migration
       t.integer :skill_points
       # String of the skill arrangement requirement. Can be Pyramid, Column, or Free
       t.string :skill_arrangement
-      end
+    end
   end
 end
