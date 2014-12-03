@@ -1,0 +1,125 @@
+<% content_for :page_title do %>
+<title>Create a Fate Character</title>
+<% end %>
+
+<% content_for :extra_css do %>
+.aspect-input {
+	min-width: 150px;
+}
+.equal, .equal > div[class*='col-'] {  
+    display: flex;
+}
+.row-eq-height {
+	display: flex;
+
+}
+
+.innermost {
+	height: 100%;
+}
+.test {
+	height: 100%;
+	style: inline-block;
+}
+
+<% end %>
+
+<% content_for :more_js do %>
+<script src="/js/fateChar.js"></script>
+<% end %>
+
+<form action="/make/char/fate">
+	<div class="container-fluid">
+		<div class="row row-eq-height equal">
+			<div class="col-lg-7">
+				<div class="panel panel-primary super-panel">
+					<div class="panel-heading">ID</div>
+					<div class="panel-body test" id="id_panel_body">
+						<div class="row temp row-eq-height" id="row_left_0">
+							<div class="col-lg-6">
+								<div class="panel panel-primary" id="name_panel">
+									<div class="panel-heading">Character Name</div>
+									<div class="panel-body" id="char_name_body">
+										<div class="input-group" id="char_name_input_group">
+											<span class="input-group-addon">Name</span> 
+											<input class='form-control' type='text' name='character_name' id="character_name" />
+										</div>
+									</div>
+								</div>
+
+								<div class="panel panel-primary" id="personality_panel">
+									<div class="panel-heading">Character Personality</div>
+									<div class="panel-body" id="char_name_body">
+										<div class="input-group" id="char_personality_input_group">
+											<span class="input-group-addon">Personality</span> 
+											<textarea class='form-control' rows="3" type='text' name="character_personality" id="character_personality"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="panel panel-primary test" id="aspects_panel">
+									<div class="panel-heading">Aspects</div>
+									<% temp_aspects = ["High Concept", "Trouble", "Phase One", "Phase Two", "Phase Three"] %>
+									<div class="panel-body" id="aspects_body">
+									<% for i in 0...temp_aspects.length %>
+										<div class="input-group" id=<%= "\"aspects_input_group_" + i.to_s + "\"" %>>
+											<span class="input-group-addon aspect-input"><%= temp_aspects[i] %></span>
+											<input class="form-control" type="text" name=<%= "\"aspect_" + i.to_s + "\"" %> id=<%= "\"aspect_" + i.to_s + "\"" %>/>
+										</div>
+									<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="panel panel-primary super-panel vcenter">
+					<div class="panel-heading">Visuals</div>
+					<div class="panel-body" id="visuals_panel_body">
+						<div class="row row-eq-height" id="row_left_0">
+							<div class="col-lg-7">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Image URL</div>
+									<div class="panel-body">
+										<div class="input-group" id="img_url_input_group">
+											<span class="input-group-addon">URL</span>
+											<input class="form-control" type="url" name="img_url" id="img_url"/>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-primary">
+									<div class="panel-heading">Description</div>
+									<div class="panel-body">
+										<div class="input-group" id="description_input_group">
+											<span class="input-group-addon">Description</span>
+											<textarea class="form-control" type="text" rows="3" name="char_desc" img="char_desc"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-5">
+								<div class="panel panel-primary">
+									<div class="panel-heading">Image</div>
+									<div class="panel-body">
+										<img src="http://i.imgur.com/jC0MirA.png" height=240 alt="" id="char_pic">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-primary super-panel">
+					<div class="panel-heading">Skills</div>
+					<div class="panel-body"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

@@ -8,6 +8,7 @@ gem "tux"
 gem 'sinatra-contrib'
 gem 'sinatra-flash'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'json'
 
 group :development do
 	gem 'sqlite3', '>= 1.3.9'

@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
 require 'bcrypt'
+require 'json'
 
 Bundler.require
 
@@ -55,7 +56,7 @@ def log_in (user)
 end
 
 get '/' do
-  redirect to("make/game/fate")
+  @skill_points = 20
   erb :fatechar
 end
 

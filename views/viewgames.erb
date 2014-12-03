@@ -11,31 +11,37 @@
 <% end %>
 
 <% for i in 0...@system_names.length %>
-<div class="panel panel-primary">
-	<div class="panel-heading"><%= @system_names[i] %></div>
-	<div class="panel-body">
-		<% if @games.length > 0 && @games[i] != false %>
-		<table class="table table-bordered">
-			<tr>
-				<th>Campaign Name</th>
-				<th>Setting</th>
-				<th>Number of GMs</th>
-				<th>Number of Players</th>
-			</tr>
-			<% for b in 0...@games[i].count %>
-			<tr>
-				<% temp = @games[i].offset(b).first %>
-				<% urlstring = "\"/view/games/" + @system_names[i].downcase + "/" + temp.name + "\"" %>
-				<td><a href=<%= urlstring %>><%= temp.name %></a></td>
-				<td><%= temp.setting_name %></td>
-				<td><%= temp.gms.length	 %></td>
-				<td><%= temp.player_ids.length %></td>
-			</tr>
-			<% end %>
-		</table>
-		<% else %>
-		<p>There are currently no <%= @system_names[i] %> games</p>
-		<% end %>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><%= @system_names[i] %></div>
+				<div class="panel-body">
+					<% if @games.length > 0 && @games[i] != false %>
+					<table class="table table-bordered">
+						<tr>
+							<th>Campaign Name</th>
+							<th>Setting</th>
+							<th>Number of GMs</th>
+							<th>Number of Players</th>
+						</tr>
+						<% for b in 0...@games[i].count %>
+						<tr>
+							<% temp = @games[i].offset(b).first %>
+							<% urlstring = "\"/view/games/" + @system_names[i].downcase + "/" + temp.name + "\"" %>
+							<td><a href=<%= urlstring %>><%= temp.name %></a></td>
+							<td><%= temp.setting_name %></td>
+							<td><%= temp.gms.length	 %></td>
+							<td><%= temp.player_ids.length %></td>
+						</tr>
+						<% end %>
+					</table>
+					<% else %>
+					<p>There are currently no <%= @system_names[i] %> games</p>
+					<% end %>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <% end %>

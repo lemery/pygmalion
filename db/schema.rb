@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111223822) do
+ActiveRecord::Schema.define(version: 20141202035810) do
+
+  create_table "fate_characters", force: true do |t|
+    t.integer "player_id"
+    t.integer "game_id"
+    t.string  "charname"
+    t.string  "charpic"
+    t.string  "aspects"
+    t.string  "skills"
+    t.string  "stunts"
+    t.integer "refresh"
+    t.string  "extras"
+    t.string  "consequences"
+    t.string  "stress_tracks"
+    t.string  "physical_description"
+    t.string  "personality"
+    t.string  "backstory"
+    t.string  "notes"
+    t.string  "secret_notes"
+  end
 
   create_table "fate_games", force: true do |t|
     t.string  "name"
