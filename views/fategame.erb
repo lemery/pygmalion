@@ -32,6 +32,10 @@
 .nav-pills > li > a:hover {
 	background-color: #1B1B1B;
 }
+.arrangement {
+	margin-left: 80px;
+	top: 87px;
+}
 <% end %>
 
 <% if @task == "Make" %>
@@ -287,7 +291,7 @@
 													<input type="hidden" id="skill_arrangement" name="skill_arrangement" value="Pyramid"> <span id="arrangement_top_label">Pyramid</span>
 													<span class="caret"></span>
 												</button>
-												<ul class="dropdown-menu" role="menu">
+												<ul class="dropdown-menu arrangement" role="menu">
 													<li><a onClick="skillArrangementChange('Pyramid')" href="#">Pyramid</a></li>
 													<li><a onClick="skillArrangementChange('Columns')" href="#">Columns</a></li>
 													<li><a onClick="skillArrangementChange('Free')" href="#">Free</a></li>

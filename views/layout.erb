@@ -2,105 +2,34 @@
 <html lang="en">
 	<head>
 		<%= yield_content :page_title %>
-		<link rel="stylesheet" href="/css/bootstrap.css">
 		<%= yield_content :extra_stylesheets %>
+		<link rel="stylesheet" href="/css/bootstrap.css">
+		<link rel="stylesheet" href="/css/layout-styling.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="/js/jquery.autosize.min.js"></script>
+		<script src="/js/layout.js"></script>
 		<%= yield_content :more_js %>
 		<script src="/js/bootstrap.js"></script>
 		<style>
-			body {
-				max-width: none;
-				color: #929696;
-				background-color: #1B1B1B;
-			}
-			.navbar {
-				max-width: none;
-				background-color: #1A5086;
-			}
-			.navbar-right {
-				margin-right: 15px;
-			}
-			.navbar-nav li a {
-				color: #FFFFFF;
-			}
-			.navbar-nav li a:hover {
-				color: #12375B;
-			}
-			.panel {
-				background-color: #2A2A2A;
-				border: 2px solid transparent;
-				text-align: center;
-				box-sizing: content-box;
-			}
-			.panel-primary > .panel-heading {
-				background-color: #1E3E5D;
-				border-color: #1E3E5D;
-				text-align: left;
-			}
-			.panel-primary {
-				border-color: #1E3E5D;
-			}
-			.super-panel > .panel-heading {
-				background-color: #1A5086;
-				border-color: #1A5086;
-			}
-			.super-panel {
-				border-color: #1A5086;
-			}
-			.super-panel > .panel-body {
-				padding-bottom: 0px;
-			}
-			.form-control {
-				background-color: #1E1F20;
-				color: #b9bcbc;
-				border-color: #3A3A3A;
-			}
-			.btn-default {
-				background-color: #3A3A3A;
-				border-color: #3A3A3A;
-				color: #FFFFFF;
-			}
-			.btn-default:disabled {
-				opacity: 0.1;
-				background-color: #3A3A3A;
-				border-color: #3A3A3A;
-				color: #FFFFFF;
-			}
-			.input-group-addon {
-				background-color: #3A3A3A;
-				border-color: #3A3A3A;
-				color: #FFFFFF;
-			}
-			.input-group {
-				margin-bottom: 2px;
-			}
-			.radio-inline {
-				color: #B9BCBC;
-			}
-			.nav-tabs > li > a {
-				background-color: #1E3E5D;
-				margin-right: 5px;
-				color: #FFFFFF;
-			}
-			.nav-tabs {
-				border-bottom: 1px solid #1E3E5D;
-			}
-			.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
-				background-color: #1A5086;
-				border-color: #1A5086;
-				color: #FFFFFF;
-			}
-			.table {
-				text-align: left;
-			}
+
 			<%= yield_content :extra_css %>
 		</style>
 	</head>
 <body>
 	<nav class="navbar" role="navigation">
 		<ul class="nav navbar-nav">
-			<li><a href='/view/games'>Games</a></li>
-			<li><a href="/view/characters">Characters</a></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Games<span class="caret"></span></a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href='/view/games'>View</a></li>
+					<li class="dropdown-submenu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Make</span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href='/make/game/fate'>Fate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
 		</ul>
 			<% if logged_in? %> 
 			<p class="navbar-text navbar-right">Signed in as <%= username %><br>

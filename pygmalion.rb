@@ -56,8 +56,8 @@ def log_in (user)
 end
 
 get '/' do
-  @skill_points = 20
-  erb :fatechar
+  @task = "Make"
+  erb :fategame
 end
 
 get '/auth/signup' do
@@ -180,8 +180,8 @@ post '/make/game/fate' do
     gms_array = []
     for i in 0...num_gms
       temp_string = "gm_username_" + i.to_s
-      if (User.where(username: temp_string).exists?)
-        gms_array.push(User.where(username: temp_string).id)
+      if (User.where(username: params[temp_string].to_s).exists?)
+        gms_array.push(User.where(username: params[temp_string]).id)
       end
     end
     game.gms = gms_array
@@ -190,8 +190,8 @@ post '/make/game/fate' do
     players_array = []
     for i in 0...num_players
       temp_string = "player_username_" + i.to_s
-      if (User.where(username: temp_string).exists?)
-        players_array.push(User.where(username: temp_string).id)
+      if (User.where(username: params[temp_string].to_s).exists?)
+        players_array.push(User.where(username: params[temp_string]).id)
       end
     end
     game.player_ids = players_array
