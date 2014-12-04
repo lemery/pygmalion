@@ -65,6 +65,10 @@ get '/auth/signup' do
   erb :signup
 end
 
+get '/make/game/fate' do
+  erb :fatechar
+end
+
 post '/auth/signup' do
   if "#{params[:user_password]}" != "#{params[:user_password_confirmation]}"
     flash[:password_match_fail] = "Passwords did not match"
