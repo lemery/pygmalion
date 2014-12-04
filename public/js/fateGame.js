@@ -659,7 +659,7 @@ function universalPresetCleanup(presetNumAspects, presetNumSkills, presetNumTrac
 		}
 	} else {
 		for (i = numSkills; i > presetNumSkills; i--) {
-			removeSkill(i);
+			removeSkill(i-1);
 		}
 	}
 	// Handles number of stress tracks
@@ -669,7 +669,7 @@ function universalPresetCleanup(presetNumAspects, presetNumSkills, presetNumTrac
 		}
 	} else {
 		for (i = numTracks; i > presetNumTracks; i--) {
-			removeTrack(i);
+			removeTrack(i-1);
 		}
 	}
 	// Handles number of consequence types
@@ -679,7 +679,7 @@ function universalPresetCleanup(presetNumAspects, presetNumSkills, presetNumTrac
 		}
 	} else {
 		for (i = numConsequenceTypes; i > presetNumConsequenceTypes; i--) {
-			removeConsequenceType(i);
+			removeConsequenceType(i-1);
 		}
 	}
 }
