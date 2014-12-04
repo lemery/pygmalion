@@ -65,7 +65,7 @@ get '/auth/signup' do
   erb :signup
 end
 
-get '/make/game/fate' do
+get '/make/character/fate' do
   erb :fatechar
 end
 
