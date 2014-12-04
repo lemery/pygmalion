@@ -116,6 +116,7 @@ $(document).ready(function() {
 			$nameIGField.attr("name", "stunt_" + currentStunts + "_name");
 			$nameIGField.attr("currStunt", currentStunts);
 			
+			// Makes changing the name field change the name of the tab
 			$nameIGField.focusout(function () {
 				var t = "#stunt_" + $(this).attr("currStunt") + "_a";
 				newName = $(this).val();
@@ -237,6 +238,19 @@ $(document).ready(function() {
 		$nameIGField.attr("class", "form-control");
 		$nameIGField.attr("type", "text");
 		$nameIGField.attr("name", "extra_" + currentExtras + "_name");
+		$nameIGField.attr("currExtra", currentExtras);
+		
+		$nameIGField.focusout(function () {
+			var t = "#extra_" + $(this).attr("currExtra") + "_a";
+			newName = $(this).val();
+			// If there is any non-whitespace in the string
+			if (/\S/.test(newName)) {
+				$(t).html(newName);
+			} else {
+				var n = "Extra " + (parseInt($(this).attr("currExtra")) + 1)
+				$(t).html(n);
+			}
+		});
 		
 		var sourceIG = document.createElement("div");
 		$sourceIG = $(sourceIG);

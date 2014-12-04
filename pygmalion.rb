@@ -56,6 +56,7 @@ def log_in (user)
 end
 
 get '/' do
+#  erb :fatechar
   @task = "Make"
   erb :fategame
 end
