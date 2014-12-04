@@ -466,7 +466,7 @@
 <% end %>
 <% if @task == "View" %>
 											<% for i in 0...@game.player_ids.length %>
-												<%= i > 0 ? User.find_by(id: @game.player_ids[i]).username + "<br>" : User.find_by(id: @game.player_ids[i]).username %>	
+												<%= User.find_by(id: @game.player_ids[i]).username %><br>	
 											<% end %>
 <% end %>
 											</div>
