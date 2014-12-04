@@ -13,15 +13,49 @@
 	display: flex;
 
 }
-
-.innermost {
-	height: 100%;
+.singular {
+	margin: 3px;
+	margin-top: 12px;
+	position: initial;
+	width: 100px;
+}
+.skill-btn-row {
+	height:50px;
 }
 .test {
 	height: 100%;
 	style: inline-block;
 }
-
+.dropdown-menu:open {
+	position: relative;
+	float: right;
+	overflow: visible;
+}
+.dropdown-menu {
+	position: relative;
+}
+.static-col {
+	width: 110px;
+}
+.btn-default:hover {
+	background-color: #1A1A1A;
+	color: #FFFFFF;
+}
+.nav-pills > li > a {
+	margin-left: 7px;
+	margin-right: 7px;
+	margin-top: 7px;
+	margin-bottom: 7px;
+	background-color: #1B1B1B;
+	color: #FFFFFF;
+	border: 2px solid #1A5086;
+}
+.nav-pills > li > a:hover {
+	background-color: #1B1B1B;
+}
+.content-centered {
+	display: inline-block;
+}
 <% end %>
 
 <% content_for :more_js do %>
@@ -46,7 +80,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="panel panel-primary" id="personality_panel">
 									<div class="panel-heading">Character Personality</div>
 									<div class="panel-body" id="char_name_body">
@@ -116,8 +149,76 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel panel-primary super-panel">
-					<div class="panel-heading">Skills</div>
-					<div class="panel-body"></div>
+					<div class="panel-heading">Capabilities</div>
+					<div class="panel-body">
+						<% skill_list = JSON.generate(["(None)", "Athletics", "Burglary", "Contacts", "Crafts", "Deceive", "Drive", "Empathy", "Fight", "Investigate", "Lore", "Notice", "Physique", "Provoke", "Rapport", "Resources", "Shoot", "Stealth", 
+"Will"]) %>
+						<% ranks_list = ["+5", "+4", "+3", "+2", "+1"] %>
+						<% skill_points = 20 %>
+						<% skill_arrangement = "Pyramid" %>
+						<input type="hidden" id="skill_list" value=<%= skill_list %>>
+    					<input type="hidden" id="skill_arrangement" value=<%= "\"" + skill_arrangement + "\"" %>>
+    					<input type="hidden" id="skill_points" value=<%= "\"" + skill_points.to_s + "\"" %>>
+						<div class="row row-eq-height">
+							<div class="col-lg-6">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Skill Arrangement</div>
+											<div class="panel-body text-center">
+												<ul class="nav nav-pills content-centered">
+													<li role="presentation"><a><%= skill_arrangement %></a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="panel panel-primary">
+											<div class="panel-heading">Skill Points Remaining</div>
+											<div class="panel-body text-center">
+												<ul class="nav nav-pills content-centered">
+													<li role="presentation"><a id="skill_points_remaining"><%= skill_list %></a></li>
+												</ul>	
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-primary">
+								<div class="panel-heading">Skill Select</div>
+								<div class="panel-body">
+								<div class="col-lg-12">
+								<div class="row">
+									<div class="container-fluid">
+									<% for i in 0...5 %>
+											<input type="hidden" value=0 name=<%= "\"skills_at_" + (5-i).to_s + "\"" %> id=<%= "\"skills_at_" + (5-i).to_s + "\"" %>>
+											<div class="row row-eq-height skill-btn-row">
+												<ul class="nav nav-pills">
+													<li role="presentation"><a><%= ranks_list[i] %></a></li>
+												</ul>
+											<% for t in 0...7 %>
+											<div class="static-col">
+											<div class="btn-group-single">
+												<button type="button" class="btn btn-default dropdown singular" data-toggle="dropdown" aria-expanded="false" id="presets_dropdown_button" skill="(None)">
+													<span id=<%= "\"row_" + i.to_s + "_col_" + t.to_s + "_skill\"" %>>(None)</span> <span class="caret"></span>
+												</button>
+											  	<ul class="dropdown-menu" role="menu">
+											  	<% for x in 0...JSON.parse(skill_list).length %>
+											  		<li><a onclick=<%= "\"chooseSkill(" + "'row_" + i.to_s + "_col_" + t.to_s + "_skill'" + ", '" + JSON.parse(skill_list)[x] + "')\"" %>><%= JSON.parse(skill_list)[x] %></a></li>
+											  	<% end %>
+											  	</ul>
+											</div>
+											</div>
+											<% end %>
+											</div>
+									<% end %>
+									</div>
+								</div>
+								</div>
+								</div>
+							</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
