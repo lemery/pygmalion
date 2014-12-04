@@ -181,7 +181,7 @@ post '/make/game/fate' do
     for i in 0...num_gms
       temp_string = "gm_username_" + i.to_s
       if (User.where(username: params[temp_string].to_s).exists?)
-        gms_array.push(User.where(username: params[temp_string]).id)
+        gms_array.push(User.where(username: params[temp_string]).take!.id)
       end
     end
     game.gms = gms_array
@@ -191,7 +191,7 @@ post '/make/game/fate' do
     for i in 0...num_players
       temp_string = "player_username_" + i.to_s
       if (User.where(username: params[temp_string].to_s).exists?)
-        players_array.push(User.where(username: params[temp_string]).id)
+        players_array.push(User.where(username: params[temp_string]).take!.id)
       end
     end
     game.player_ids = players_array

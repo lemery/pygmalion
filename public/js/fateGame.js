@@ -550,6 +550,97 @@ function fateCorePreset() {
 	
 }
 
+function fireflyPreset() {
+	replacePresetsLabel("Firefly");
+	universalPresetCleanup(5, 19, 2, 1);
+	// Aspects
+	document.getElementById("aspect_type_0").value="High Concept";
+	document.getElementById("aspect_type_1").value="Trouble";
+	document.getElementById("aspect_type_2").value="Roll Amongst the Crew";
+	document.getElementById("aspect_type_3").value="Call of the Black";
+	document.getElementById("aspect_type_4").value="What Keeps You Grounded";
+	// Skills
+	document.getElementById("skill_name_0").value="Athletics";
+	document.getElementById("skill_name_1").value="Brawl";
+	document.getElementById("skill_name_2").value="Company";
+	document.getElementById("skill_name_3").value="Culture";
+	document.getElementById("skill_name_4").value="Doctor";
+	document.getElementById("skill_name_5").value="Fence";
+	document.getElementById("skill_name_6").value="Fly";
+	document.getElementById("skill_name_7").value="Hustle";
+	document.getElementById("skill_name_8").value="Inspect";
+	document.getElementById("skill_name_9").value="Instinct";
+	document.getElementById("skill_name_10").value="Mechanics";
+	document.getElementById("skill_name_11").value="Rob";
+	document.getElementById("skill_name_12").value="Physique";
+	document.getElementById("skill_name_13").value="Preach";
+	document.getElementById("skill_name_14").value="Provoke";
+	document.getElementById("skill_name_15").value="Shoot";
+	document.getElementById("skill_name_16").value="Stealth";
+	document.getElementById("skill_name_17").value="Will";
+	document.getElementById("skill_name_18").value="Read";
+	
+	skillArrangementChange("Pyramid");
+	document.getElementById("num_skill_points").value=20;
+	// Stress Tracks
+	document.getElementById("stress_track_0_name").value="Physical";
+	document.getElementById("stress_track_0_size").value=2;
+	document.getElementById("stress_track_0_skill").value="Physique";
+	document.getElementById("stress_track_1_name").value="Mental";
+	document.getElementById("stress_track_1_size").value=2;
+	document.getElementById("stress_track_1_skill").value="Will";
+	// Consequences
+	document.getElementById("consequence_type_0_name").value="Shared";
+	document.getElementById("consequence_type_0_sizes").value="-2, -4, -6";
+	// Stunts and Refresh
+	document.getElementById("pc_refresh").value="6";
+	document.getElementById("num_stunts").value="3";
+	document.getElementById("num_max_stunts").value="5";
+}
+
+function kriegzeppelinPreset() {
+	replacePresetsLabel("Kriegzeppelin Valkyrie")
+	
+	universalPresetCleanup(5, 13, 2, 1);
+	// Aspects
+	document.getElementById("aspect_type_0").value="High Concept";
+	document.getElementById("aspect_type_1").value="Trouble";
+	document.getElementById("aspect_type_2").value="Free";
+	document.getElementById("aspect_type_3").value="Free";
+	document.getElementById("aspect_type_4").value="During Play";
+	// Skills
+	document.getElementById("skill_name_0").value="Athletics";
+	document.getElementById("skill_name_1").value="Deceive";
+	document.getElementById("skill_name_2").value="Empathy";
+	document.getElementById("skill_name_3").value="Fight";
+	document.getElementById("skill_name_4").value="Machinery";
+	document.getElementById("skill_name_5").value="Notice";
+	document.getElementById("skill_name_6").value="Physique";
+	document.getElementById("skill_name_7").value="Pilot";
+	document.getElementById("skill_name_8").value="Rapport";
+	document.getElementById("skill_name_9").value="Shoot";
+	document.getElementById("skill_name_10").value="Swagger";
+	document.getElementById("skill_name_11").value="Stealth";
+	document.getElementById("skill_name_12").value="Will";
+	
+	skillArrangementChange("Pyramid");
+	document.getElementById("num_skill_points").value=20;
+	// Stress Tracks
+	document.getElementById("stress_track_0_name").value="Physical";
+	document.getElementById("stress_track_0_size").value=2;
+	document.getElementById("stress_track_0_skill").value="Physique";
+	document.getElementById("stress_track_1_name").value="Mental";
+	document.getElementById("stress_track_1_size").value=2;
+	document.getElementById("stress_track_1_skill").value="Will";
+	// Consequences
+	document.getElementById("consequence_type_0_name").value="Shared";
+	document.getElementById("consequence_type_0_sizes").value="-2, -4, -6";
+	// Stunts and Refresh
+	document.getElementById("pc_refresh").value="6";
+	document.getElementById("num_stunts").value="3";
+	document.getElementById("num_max_stunts").value="5";
+}
+
 function universalPresetCleanup(presetNumAspects, presetNumSkills, presetNumTracks, presetNumConsequenceTypes) {
 	// Handles number of aspects
 	if (presetNumAspects > numAspects) {

@@ -110,7 +110,8 @@
 													<ul class="dropdown-menu" role="menu">
 														<li onclick="replacePresetsLabel('(None)')"><a href="#">(None)</a></li>
 														<li onclick="fateCorePreset()"><a href="#">Fate Core</a></li>
-														<li onclick="replacePresetsLabel('Dresden Files')"><a id="dresden_files_preset" href="#">Dresden Files</a></li>
+														<li onclick="fireflyPreset()"><a id="firefly_preset" href="#">Firefly</a></li>
+														<li onclick="kriegzeppelinPreset()"><a id="kriegzeppelin_valkyrie_preset" href="#">Kriegzeppelin Valkyrie</a></li>
 													</ul>
 												</div>
 											</div>
@@ -181,7 +182,7 @@
 													<% for i in 0...keys.length %>
 														<% t = keys[i] %>
 														<li <%= i == 0 ? "class=\"active\"" : "" %>>
-															<a data-toggle="tab" href=<%= "\"#" + t + "\"" %>>
+															<a data-toggle="tab" href=<%= "\"#" + t.to_s + "\"" %>>
 																<%= t %>
 															</a>
 														</li>
@@ -190,7 +191,7 @@
 														<div class="tab-content">
 														<% for i in 0...keys.length %>
 															<% t = @game.stress_tracks[keys[i]] %>
-															<div class=<%= i == 0 ? "\"tab-pane active fade in\"" : "\"tab-pane fade\"" %> id=<%= "\"" + keys[i] + "\"" %>>
+															<div class=<%= i == 0 ? "\"tab-pane active fade in\"" : "\"tab-pane fade\"" %> id=<%= "\"" + keys[i].to_s + "\"" %>>
 																<br>
 																<div class="panel panel-primary">
 																	<div class="panel-heading">Governed by 	<%= t["Skill"] %></div>
@@ -441,7 +442,7 @@
 <% end %>
 <% if @task == "View" %>
 											<% for i in 0...@game.gms.length %>
-												<%= i > 0 ? User.find_by(id: @game.gms[i]).username + "<br>" : User.find_by(id: @game.gms[i].username) %>	
+												<%= i > 0 ? User.find_by(id: @game.gms[i]).username + "<br>" : User.find_by(id: @game.gms[i]).username %>	
 											<% end %>
 <% end %>
 											</div>
@@ -465,7 +466,7 @@
 <% end %>
 <% if @task == "View" %>
 											<% for i in 0...@game.player_ids.length %>
-												<%= i > 0 ? User.find_by(id: @game.player_ids[i]).username + "<br>" : User.find_by(id: @game.player_ids[i].username) %>	
+												<%= i > 0 ? User.find_by(id: @game.player_ids[i]).username + "<br>" : User.find_by(id: @game.player_ids[i]).username %>	
 											<% end %>
 <% end %>
 											</div>
