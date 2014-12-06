@@ -8,17 +8,23 @@
 <% end %>
 
 <% content_for :extra_css do %>
-<% if @task == "View" %>
+<% if @task == "View"%>
 .panel-body {
 	color: #FFFFFF;
 }
 <% end %>
 .table {
 	margin-bottom: 0px;
+	vertical-align: middle;
 }
 .table-bordered {
 	border: 1px solid #1E3E5D;
 	background-color: #1E3E5D;
+}
+
+td > .row {
+	display: flex;
+	vertical-align: middle;
 }
 .nav-pills > li > a {
 	margin-left: 7px;
@@ -38,6 +44,10 @@
 }
 <% end %>
 
+<% if @task == "View" %>
+<input type="hidden" id="permissions" value=<%= "\"" + @permissions + "\""  %>>
+<input type="hidden" id="post-game-name" value=<%= "\"" + @game.name + "\"" %>>
+<% end %>
 <% if @task == "Make" %>
 	<form action="/make/game/fate" method='POST'>
 <% end %>
@@ -47,7 +57,12 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-primary super-panel">
+<% if @task == "Make" %>
 							<div class="panel-heading">Setting, Aspects, and Presets</div>
+<% end %>
+<% if @task == "View" %>
+							<div class="panel-heading">Setting and Aspects</div>
+<% end %>
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-6">
@@ -59,8 +74,18 @@
 													<span class="input-group-addon">Name</span> <input class='form-control' type='text' name='game_name' id="game_name" />
 												</div>
 <% end %>
-<% if @task == "View" %>
+<% if @task == "View" && @permissions == "View"%>
 								<%= @game.name %>
+<% end %>
+<% if @task == "View" && @permissions == "Edit" %>
+												<div class="input-group" id="edit_name_ig">
+													<span class="input-group-addon">Name</span> 
+													<input class='form-control' type='text' name='edit_game_name' id="edit_game_name" value=<%= "\"" + @game.name + "\"" %> disabled/>
+													<span class="input-group-btn">
+														<button class="btn btn-default" type="button" id="show_gamename_field">Edit</button>
+													</span>
+												</div>
+												<button class="btn btn-default" type="button" id="submit_gamename_change">Save</button>
 <% end %>
 											</div>
 										</div>
@@ -75,8 +100,18 @@
 													<input class="form-control" type="text" name="setting_name">
 												</div>
 <% end %>
-<% if @task == "View" %>
+<% if @task == "View" && @permissions == "View" %>
 								<%= @game.setting_name %>
+<% end %>
+<% if @task == "View" && @permissions == "Edit" %>
+												<div class="input-group" id="edit_setting_name_ig">
+													<span class="input-group-addon">Name</span> 
+													<input class='form-control' type='text' name='edit_setting_name' id="edit_setting_name" value=<%= "\"" + @game.setting_name + "\"" %> disabled/>
+													<span class="input-group-btn">
+														<button class="btn btn-default" type="button" id="show_settingname_field">Edit</button>
+													</span>
+												</div>
+												<button class="btn btn-default" type="button" id="submit_settingname_change">Save</button>
 <% end %>
 											</div>
 										</div>
@@ -124,9 +159,32 @@
 								<div class="panel-heading">Aspects</div>
 								<div class="panel-body" id="aspects_body">
 									<table class="table table-bordered">
+									<input hidden id="num_aspects" value=<%= "\"" + @game.aspects.length.to_s + "\"" %>>
 									<% for i in 0...@game.aspects.length %>
 										<tr>
-											<td><%= @game.aspects[i] %></td>
+<% if @permissions == "View" %>
+											<td><%= @game.aspects[i] %>	</td>
+<% end %>
+<% if @permissions == "Edit" %>
+											<td>
+												<div class="input-group" id=<%= "\"edit_aspect_" + i.to_s + "_ig\"" %>>
+													<input type="hidden" value=<%= "\"" + i.to_s + "\"" %>>
+													<span class="input-group-addon">Aspect</span> 
+													<input class='form-control' type='text' name=<%= "\"edit_aspect_" + i.to_s + "_name\"" %> id=<%= "\"edit_aspect_" + i.to_s + "_name\"" %> value=<%= "\"" + @game.aspects[i].to_s + "\"" %> disabled/>
+													<span class="input-group-btn">
+														<button class="btn btn-default" type="button" id=<%= "\"show_aspect_" + i.to_s + "_field\"" %>>Edit</button>
+													</span>
+												</div>
+												<div class="row">
+												<div class="col-lg-6">
+												<button class="btn btn-default" type="button" id=<%= "\"submit_aspect_" + i.to_s + "_change\"" %>>Save</button>
+												</div>
+												<div class="col-lg-6">
+												<button class="btn btn-default pull-right" id=<%= "\"delete_aspect_" + i.to_s + "_button\"" %>>Delete</button>
+												</div>
+												</div>
+											</td>
+<% end %>
 										</tr>
 									<% end %>
 									</table>

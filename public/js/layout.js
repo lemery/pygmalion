@@ -9,3 +9,16 @@ $(document).ready(function() {
 	    $(this).parent().find("ul").parent().find("li.dropdown").addClass('open');
 	});
 });
+
+$(document).ready(function() {
+	var bar_height = $(".navbar").height();
+	$nav = $($(".navbar").children().get(0)) 
+	var moreHeight = (bar_height - $nav.outerHeight())/2;
+	var marTopS = $nav.css("margin-top");
+	var marTopI = parseInt(marTopS.substring(0, marTopS.length - 2));
+	var marBotS = $nav.css("margin-bottom");
+	var marBotI = parseInt(marBotS.substring(0, marBotS.length - 2));
+	console.log("Changing heights");
+	$nav.css("margin-top", marTopI + moreHeight + "px");
+	$nav.css("margin-bottom", marBotI + moreHeight + "px");
+});

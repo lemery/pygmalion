@@ -56,9 +56,7 @@ def log_in (user)
 end
 
 get '/' do
-#  erb :fatechar
-  @task = "Make"
-  erb :fategame
+  redirect to('/view/games')
 end
 
 get '/auth/signup' do
@@ -116,6 +114,10 @@ end
 
 get '/auth/restricted' do
   erb :restricted
+end
+
+get '/make/character/fate' do
+  erb :fatechar 
 end
 
 get '/make/game/fate' do
@@ -216,15 +218,45 @@ post '/make/game/fate' do
   end
 end
 
-get '/view/games/fate/:gamename' do
+post '/edit/game/fate/:gamename/:attribute' do
+  if (FateGame.exists?(:name => "#{params[:gamename]}"))
+    g = FateGame.where(:name => "#{params[:gamename]}").first()
+    puts "params = #{params[:attribute]}"
+    if g.has_attribute?("#{params[:attribute]}")
+      puts  "Params newVal = #{params[:new_val]}, updating #{params[:attribute]}"
+      g.update_attribute("#{params[:attribute]}", params[:new_val]);
+    end
+  end
+end
+
+get '/view/games/fate/:gamename/force-edit' do
   if (FateGame.exists?(:name => "#{params[:gamename]}"))
     @task = "View"
     @game = FateGame.where(name: "#{params[:gamename]}").first()
+    @permissions = "Edit"
+    currViewerID = User.where(:username => session[:username]).first().id
+    erb :fategame
   else
     @name = "\"#{params[:gamename]}\""
     erb :nogame
   end
-  erb :fategame
+end
+
+get '/view/games/fate/:gamename' do
+  if (FateGame.exists?(:name => "#{params[:gamename]}"))
+    @task = "View"
+    @game = FateGame.where(name: "#{params[:gamename]}").first()
+    currViewerID = User.where(:username => session[:username]).first().id
+    if (@game.gms.include? currViewerID)
+      @permissions = "Edit"
+    else
+      @permissions = "View"
+    end
+    erb :fategame
+  else
+    @name = "\"#{params[:gamename]}\""
+    erb :nogame
+  end
 end
 
 get '/view/games' do

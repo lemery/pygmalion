@@ -27,12 +27,8 @@
 	style: inline-block;
 }
 .dropdown-menu:open {
-	position: relative;
 	float: right;
 	overflow: visible;
-}
-.dropdown-menu {
-	position: relative;
 }
 .static-col {
 	width: 110px;
@@ -272,7 +268,7 @@
 									<div class="panel-heading heading-centered">Remaining Refresh</div>
 									<div class="panel-body text-center">
 										<ul class="nav nav-pills content-centered">
-											<li role="presentation"><a><%= refresh %></a></li>
+											<li role="presentation"><a id="refresh_remaining_a"><%= refresh %></a></li>
 										</ul>
 									</div>
 								</div>
@@ -340,6 +336,29 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="panel panel-primary super-panel">
+					<div class="panel-heading">Notes</div>
+					<div class="panel-body">
+						<div class="panel panel-primary">
+							<div class="panel-heading">Public</div>
+							<div class="panel-body"></div>
+						</div>
+						<div class="panel panel-primary">
+							<div class="panel-heading">Secret</div>
+							<div class="panel-body"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="panel panel-primary super-panel">
+					<div class="panel-heading">Backstory</div>
+					<div class="panel-body"></div>
 				</div>
 			</div>
 		</div>

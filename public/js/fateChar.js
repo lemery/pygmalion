@@ -17,6 +17,8 @@ var maxStunts;
 var currentStunts = 0;
 var currentExtras = 0;
 
+var extraCosts = [];
+
 // URL in the image url entry replaces extant image
 $(document).ready(function() {
 	$("#img_url").keyup(function(event) {
@@ -120,7 +122,12 @@ $(document).ready(function() {
 			$nameIGField.focusout(function () {
 				var t = "#stunt_" + $(this).attr("currStunt") + "_a";
 				newName = $(this).val();
-				$(t).html(newName);
+				if ($(t).test(/\S/) == true) {
+					$(t).html(newName);
+				} else {
+					var n = "Stunt " + (parseInt($(this).attr("currStunt"))+1)
+					$(t).html(n);
+				}
 			});
 			
 			var sourceIG = document.createElement("div");
@@ -173,6 +180,9 @@ $(document).ready(function() {
 			$descIG.append($descIGField);
 					
 			currentStunts++;
+			updateCosts();
+		} else if (parseInt($("#refresh_remaining_a").html()) == 1) {
+			alert("You don't have enough refresh to add another stunt");
 		} else {
 			alert("You have made all the stunts you are allowed to!");
 		}
@@ -281,6 +291,19 @@ $(document).ready(function() {
 		$costIGField.attr("class", "form-control");
 		$costIGField.attr("type", "number");
 		$costIGField.attr("name", "extra_" + currentExtras + "_cost");
+		$costIGField.attr("currExtra", currentExtras);
+		
+		$costIGField.focusout(function() {
+			if (parseInt($("#refresh_remaining_a").html()) <= $(this).val()) {
+				$(this).val(0);
+				alert("You don't have enough remaining Refresh for that!");
+			} else {
+				var currIndex = parseInt($(this).attr("currExtra"));
+				var val = $(this).val();
+				extraCosts[currIndex] = val;
+			}
+			updateCosts();
+		});
 		
 		var descIG = document.createElement("div");
 		$descIG = $(descIG);
@@ -324,6 +347,16 @@ $(document).ready(function() {
 		currentExtras++;
 	});
 });
+
+function updateCosts() {
+	console.log("Updating costs");
+	var refreshRemaining = refresh;
+	refreshRemaining -= currentStunts;
+	for (i = 0; i < extraCosts.length; i++) {
+		refreshRemaining -= extraCosts[i];
+	}
+	$("#refresh_remaining_a").html(refreshRemaining);
+}
 
 //Skills Stuff
 function initializeSkillMap() {

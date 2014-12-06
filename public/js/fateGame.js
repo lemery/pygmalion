@@ -556,7 +556,7 @@ function fireflyPreset() {
 	// Aspects
 	document.getElementById("aspect_type_0").value="High Concept";
 	document.getElementById("aspect_type_1").value="Trouble";
-	document.getElementById("aspect_type_2").value="Roll Amongst the Crew";
+	document.getElementById("aspect_type_2").value="Role Amongst the Crew";
 	document.getElementById("aspect_type_3").value="Call of the Black";
 	document.getElementById("aspect_type_4").value="What Keeps You Grounded";
 	// Skills
@@ -682,4 +682,102 @@ function universalPresetCleanup(presetNumAspects, presetNumSkills, presetNumTrac
 			removeConsequenceType(i-1);
 		}
 	}
+}
+
+$(document).ready(function() {
+	if ($("#permissions").val() == "Edit") {
+		// Game name edit stuff
+		$("#submit_gamename_change").click(function() {
+			var url = "/edit/game/fate/" + $("#post-game-name").val() + "/name";
+			$.post(
+				url, 
+				{new_val: $("#edit_game_name").val() },
+				function(data, status, xhr) {
+					window.location.replace("/view/games/fate/" + $("#edit_game_name").val())
+					$("edit_game_name").prop("disabled", true);
+					$("submit_gamename_change").hide();
+				}
+			);
+					
+		});
+		$("#submit_gamename_change").hide();
+		$("#show_gamename_field").click(function() {
+			$("#edit_game_name").prop("disabled", false);
+			$("#submit_gamename_change").show();
+		});
+		// Setting name change edit stuff
+		$("#submit_settingname_change").click(function() {
+			var url = "/edit/game/fate/" + $("#post-game-name").val() + "/setting_name";
+			$.post(
+				url, 
+				{new_val: $("#edit_setting_name").val() },
+				function(data, status, xhr) {
+					$("#edit_setting_name").prop("disabled", true);
+					$("#submit_settingname_change").hide();
+				}
+			);
+					
+		});
+		$("#submit_settingname_change").hide();
+		$("#show_settingname_field").click(function() {
+			$("#edit_setting_name").prop("disabled", false);
+			$("#submit_settingname_change").show();
+		});
+		// Aspect change edit stuff
+		$('[id^="submit_aspect_"][id$="_change"]').each(function() {
+			$(this).click(function() {
+				$t = $((this).parents().get(2));
+				var url = "/edit/game/fate/" + $("#post-game-name").val() + "/aspects";
+				$.post(
+					url,
+					{new_val: getAspectsArray()},
+					function(data, status, xhr) {
+						$t.find('[id^="edit_aspect"]').prop("disabled", true);
+						$t.find('[id^="submit_aspect"]').hide();
+						$t.find('[id^="delete_aspect"]').hide();
+					}
+				);
+			});
+			$(this).hide();
+		});
+		
+		$('[id^="delete_aspect_"][id$="_button"]').each(function() {
+			$(this).click(function() {
+				$t = $(this);
+				var id = $t.attr("id").charAt($t.attr("id").search(/\d/));
+				var url = "/edit/game/fate/" + $("#post-game-name").val() + "/aspects";
+				console.log(getAspectsArray());
+				var asp = getAspectsArray();
+				asp.splice(id, 1);
+				console.log(asp);
+				$.post(
+					url,
+					{new_val: asp },
+					function(data, status, xhr) {
+						window.location.replace("/view/games/fate/" + $("#edit_game_name").val())
+					}
+				);
+			});	
+			$(this).hide();
+		});
+		
+		$('[id^="show_aspect_"],[id$="_field"]').each(function() {
+			$(this).click(function() {
+				$td = $($(this).parents().get(1))
+				
+				$td.siblings().find('[id^="edit_aspect"]').prop("disabled", false);
+				$td.siblings().find('[id^="submit_aspect"]').show();
+				$td.siblings().find('[id^="delete_aspect"]').show();
+			});
+		});
+		
+	}
+});
+
+function getAspectsArray() {
+	var arr = [];
+	for (i = 0; i < $("#num_aspects").val(); i++) {
+		arr.push($("#edit_aspect_" + i + "_name").val());
+	}
+	return arr;
 }
