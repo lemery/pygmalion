@@ -246,7 +246,11 @@ get '/view/games/fate/:gamename' do
   if (FateGame.exists?(:name => "#{params[:gamename]}"))
     @task = "View"
     @game = FateGame.where(name: "#{params[:gamename]}").first()
-    currViewerID = User.where(:username => session[:username]).first().id
+    if (User.exists?(:username => session[:username]))
+      currViewerID = User.where(:username => session[:username]).first().id
+    else
+      currViewerID = nil;
+    end
     if (@game.gms.include? currViewerID)
       @permissions = "Edit"
     else
