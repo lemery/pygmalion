@@ -44,7 +44,7 @@ module Sinatra
             consequences_hash = {}
             for i in 0...num_consequences
               tnames = ["consequence_type_" + i.to_s + "_name", "consequence_type_" + i.to_s + "_sizes"]
-              size_arr = params[tnames[1]].to_s.split(', ')
+              size_arr = params[tnames[1]].to_s.split(/[\s,]/)
               for i in 0...size_arr.length
                 size_arr[i] = size_arr[i].to_i
               end
@@ -146,16 +146,19 @@ module Sinatra
             erb :nogame 
           end
         end
-        
+                
         app.get '/view/games' do
           @system_names = ["Fate"]
           @games = []
           @games.push(FateGame.count > 0 ? FateGame.order(:name).limit(10) : false)
           erb :viewgames
         end
+        
+        app.get '/presets/games/fate' do
+          content_type :json
+          JSON.parse(File                                                                                                                                                             .read('fatepresets.json'))
+        end
       end
     end
   end
-  
-  register FateGames
 end

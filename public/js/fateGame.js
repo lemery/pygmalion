@@ -7,329 +7,204 @@ var numPlayers = 1;
 var requiresApproval = false;
 
 function incrementValue(id) {
-	console.log("incrementing " + id);
-	var name = document.getElementById(id);
-	var val = name.value;
-	val++;
-	name.value = val;
+//	console.log("incrementing " + id)
+	$('#' + id).val($('#' + id).val() + 1);
 }
 
 function decrementValue(id) {
-	console.log("decrementing " + id);
-	var name = document.getElementById(id);
-	var val = name.value;
-	val--;
-	name.value = val;	
+//	console.log("decrementing " + id);
+	$('#' + id).val($('#' + id).val() - 1);
 }
 
-function addAspect() {    
-    var inGroup = document.createElement("div");
-    inGroup.setAttribute("class", "input-group");
-    inGroup.setAttribute("id", "aspect_input_group_" + numAspects);
+function addAspect() {
+	var $inGroup = $("<div class='input-group' id='aspect_input_group_" + numAspects + "'></div>");
+	var $typeLabel = $("<span class='input-group-addon'>Aspect Type</span>");
+	var $aspectType = $("<input class='form-control' type='text' id='aspect_type_" + numAspects + "' name='aspect_type_" + numAspects + "'></input>");
+	var $removeSpan = $("<span class='input-group-btn'></span>");
+    var $removeButton = $("<button class='btn btn-default' type='button' onClick='removeAspect(" + numAspects + ")' + id='remove_aspect_" + numAspects + "_button'>Remove</button>");
     
-    var typeLabel = document.createElement("span");
-    typeLabel.setAttribute("class", "input-group-addon");
-    typeLabel.appendChild(document.createTextNode("Aspect Type"));
+    $inGroup.append($typeLabel);
+    $inGroup.append($aspectType);
+    $inGroup.append($removeSpan);
+    $removeSpan.append($removeButton);
+    console.log($inGroup);
     
-    var aspectType = document.createElement("input");
-    aspectType.setAttribute("class", "form-control");
-    aspectType.setAttribute("type", "text");
-    aspectType.setAttribute("id", "aspect_type_" + numAspects);
-    aspectType.setAttribute("name", "aspect_type_" + numAspects);
-    
-    var removeSpan = document.createElement("span");
-    removeSpan.setAttribute("class", "input-group-btn");
-    
-    var removeButton = document.createElement("button");
-    removeButton.setAttribute("class", "btn btn-default");
-    removeButton.setAttribute("type", "button");
-    removeButton.setAttribute("onClick", "removeAspect(" + numAspects + ")");
-    removeButton.setAttribute("id", "remove_aspect_" + numAspects + "_button");
-    removeButton.appendChild(document.createTextNode("Remove"));
-    
-    inGroup.appendChild(typeLabel);
-    inGroup.appendChild(aspectType);
-    inGroup.appendChild(removeSpan);
-    removeSpan.appendChild(removeButton);
-    
-    var body = document.getElementById("aspects_body");
-    var btn = document.getElementById("add_aspect_button");
-    body.insertBefore(inGroup, btn);
+    $('#add_aspect_button').before($inGroup);
 
     incrementValue("num_aspects");
     numAspects++;
 }
 
 function removeAspect(num) {
-    var inGroup = document.getElementById("aspect_input_group_" + num);
-    inGroup.parentNode.removeChild(inGroup);
+    $('#aspect_input_group_' + num).remove();
     for (x = num + 1; x < numAspects; x++) {
         var t = x-1;
         
-        var inG = document.getElementById("aspect_input_group_" + x);
-        inG.setAttribute("id", "aspect_input_group_" + t);
+        $('#aspect_input_group_' + x).attr('id', 'aspect_input_group' + t);
         
-        var aspType = document.getElementById("aspect_type_" + x);
-        aspType.setAttribute("id", "aspect_type_" + t);
-        aspType.setAttribute("name", "aspect_type_" + t);
+        $('#aspect_type_' + x).attr({
+        	id: 'aspect_type_' + t,
+        	name: 'aspect_type_' + t
+        });
         
-        var rmBtn = document.getElementById("remove_aspect_" + x + "_button");
-        rmBtn.setAttribute("id", "remove_aspect_" + t + "_button");
-        rmBtn.setAttribute("onClick", "removeAspect(" + t + ")");        
+        $('#remove_aspect_' + x + '_button').attr({
+        	id: 'remove_aspect_' + t + '_button',
+        	onClick: 'removeAspect(' + t + ')'
+        });     
     }
 	decrementValue("num_aspects")
 	numAspects--;
 }
 
-function addSkill() {    
-    var inGroup = document.createElement("div");
-    inGroup.setAttribute("class", "input-group");
-    inGroup.setAttribute("id", "skill_input_group_" + numSkills);
+function addSkill() {
+	var $inGroup = $("<div class='input-group' id='skill_input_group_" + numSkills + "'></div>");
+	var $skillLabel = $("<span class='input-group-addon'>Skill</span>");
+    var $skillName = $("<input class='form-control' type='text' id='skill_name_" + numSkills + "' name='skill_name_" + numSkills + "'></input>");
+    var $removeSpan = $("<span class='input-group-btn'></span>");
+    var $removeButton = $("<button class='btn btn-default' type='button' onClick='removeSkill(" + numSkills + ")' id='remove_skill_" + numSkills + "_button'>Remove</button>");
     
-    var skillLabel = document.createElement("span");
-    skillLabel.setAttribute("class", "input-group-addon");
-    skillLabel.appendChild(document.createTextNode("Skill"));
+    $inGroup.append($skillLabel);
+    $inGroup.append($skillName);
+    $inGroup.append($removeSpan);
+    $removeSpan.append($removeButton);    
     
-    var skillName = document.createElement("input");
-    skillName.setAttribute("class", "form-control");
-    skillName.setAttribute("type", "text");
-    skillName.setAttribute("id", "skill_name_" + numSkills);
-    skillName.setAttribute("name", "skill_name_" + numSkills);
-    
-    var removeSpan = document.createElement("span");
-    removeSpan.setAttribute("class", "input-group-btn");
-    
-    var removeButton = document.createElement("button");
-    removeButton.setAttribute("class", "btn btn-default");
-    removeButton.setAttribute("type", "button");
-    removeButton.setAttribute("onClick", "removeSkill(" + numSkills + ")");
-    removeButton.setAttribute("id", "remove_skill_" + numSkills + "_button");
-    removeButton.appendChild(document.createTextNode("Remove"));
-    
-    inGroup.appendChild(skillLabel);
-    inGroup.appendChild(skillName);
-    inGroup.appendChild(removeSpan);
-    removeSpan.appendChild(removeButton);
-    
-    var body = document.getElementById("skills_body");
-    var btn = document.getElementById("add_skill_button");
-    body.insertBefore(inGroup, btn);
+    $("#add_skill_button").before($inGroup);
     
     incrementValue("num_skills");
     numSkills++;
 }
 
 function removeSkill(num) {
-    var inGroup = document.getElementById("skill_input_group_" + num);
-    inGroup.parentNode.removeChild(inGroup);
+	$("#skill_input_group_" + num).remove();
     for (x = num + 1; x < numSkills; x++) {
         var t = x-1;
         
-        var inG = document.getElementById("skill_input_group_" + x);
-        inG.setAttribute("id", "skill_input_group_" + t);
+        $('#skill_input_group_' + x).attr('id', 'skill_input_group_' + t);
         
-        var skillName = document.getElementById("skill_name_" + x);
-        skillName.setAttribute("id", "skill_name_" + t);
-        skillName.setAttribute("name", "skill_name_" + t);
+        $('#skill_name_' + x).attr({
+        	id: 'skill_name_' + t,
+        	name: 'skill_name_' + t
+        });
         
-        var rmBtn = document.getElementById("remove_skill_" + x + "_button");
-        rmBtn.setAttribute("id", "remove_skill_" + t + "_button");
-        rmBtn.setAttribute("onClick", "removeSkill(" + t + ")");       
+        $('#remove_skill_' + x + '_button').attr({
+        	id: 'remove_skill_' + t + '_button',
+        	onClick: 'removeSkill(' + t + ')'
+        });  
     }
     decrementValue("num_skills");
     numSkills--;
 }
 
 function addTrack() {
-	var inGroupA = document.createElement("div");
-	inGroupA.setAttribute("class", "input-group");
+	var $inGroupA = $('<div class="input-group"></div>');
+	var $nameLabel = $('<span class="input-group-addon">Name</span>');
+	var $nameField = $('<input class="form-control" type="text" name="stress_track_' + numTracks + '_name" id="stress_track_' + numTracks + '_name"></input>');
 	
-	var nameLabel = document.createElement("span");
-	nameLabel.setAttribute("class", "input-group-addon");
-	nameLabel.appendChild(document.createTextNode("Name"));
+	var $inGroupB = $('<div class="input-group"></div>');
+	var $numLabel = $('<span class="input-group-addon">Boxes</span>'); 
+	var $numBoxes = $('<input class="form-control" type="number" name="stress_track_' + numTracks + '_size" id="stress_track_' + numTracks + '_size"></input>');
+		
+	var $inGroupC = $('<div class="input-group"></div>');
+	var $skillLabel = $('<span class="input-group-addon">Skill</span>');
+	var $skillField = $('<input class="form-control" type="text" name="stress_track_' + numTracks + '_skill" id="stress_track_' + numTracks + '_skill"></input>');
 	
-	var nameField = document.createElement("input");
-	nameField.setAttribute("class", "form-control");
-	nameField.setAttribute("type", "text");
-	nameField.setAttribute("name", "stress_track_" + numTracks + "_name");
-	nameField.setAttribute("id", "stress_track_" + numTracks + "_name");
+	var $removeSpan = $('<span class="input-group-btn"></span>');
+	var $removeButton = $('<button class="btn btn-default" type="button" onClick="removeTrack(' + numTracks + ')" id="remove_track_' + numTracks + '_button">Remove</button>');
 	
-	var inGroupB = document.createElement("div");
-	inGroupB.setAttribute("class", "input-group");
+	var $row = $('<div class="row" id="stress_track_row_' + numTracks + '"></div>');
+	var $col1 = $('<div class="col-lg-3"></div>');
+	var $col2 = $('<div class="col-lg-3"></div>');
+	var $col3 = $('<div class="col-lg-4"></div>');
+	var $col4 = $('<div class="col-lg-2"></div>');
 	
-	var numLabel = document.createElement("span");
-	numLabel.setAttribute("class", "input-group-addon");
-	numLabel.appendChild(document.createTextNode("Boxes"));
+	$inGroupA.append($nameLabel);
+	$inGroupA.append($nameField);
 	
-	var numBoxes = document.createElement("input");
-	numBoxes.setAttribute("class", "form-control");
-	numBoxes.setAttribute("type", "number");
-	numBoxes.setAttribute("name", "stress_track_" + numTracks + "_size");
-	numBoxes.setAttribute("id", "stress_track_" + numTracks + "_size");
-	
-	var inGroupC = document.createElement("div");
-	inGroupC.setAttribute("class", "input-group");
-	
-	var skillLabel = document.createElement("span");
-	skillLabel.setAttribute("class", "input-group-addon");
-	skillLabel.appendChild(document.createTextNode("Skill"));
-	
-	var skillField = document.createElement("input");
-	skillField.setAttribute("class", "form-control");
-	skillField.setAttribute("type", "text");
-	skillField.setAttribute("name", "stress_track_" + numTracks + "_skill");
-	skillField.setAttribute("id", "stress_track_" + numTracks + "_skill");
-	
-    var removeSpan = document.createElement("span");
-    removeSpan.setAttribute("class", "input-group-btn");
-	
-    var removeButton = document.createElement("button");
-    removeButton.setAttribute("class", "btn btn-default");
-    removeButton.setAttribute("type", "button");
-    removeButton.setAttribute("onClick", "removeTrack(" + numTracks + ")");
-    removeButton.setAttribute("id", "remove_track_" + numTracks + "_button");
-    removeButton.appendChild(document.createTextNode("Remove"));
+    $inGroupB.append($numLabel);
+    $inGroupB.append($numBoxes);
     
-    var row = document.createElement("div");
-    row.setAttribute("class", "row");
-    row.setAttribute("id", "stress_track_row_" + numTracks);
+    $inGroupC.append($skillLabel);
+    $inGroupC.append($skillField);
     
-    var col1 = document.createElement("div");
-    col1.setAttribute("class", "col-lg-3");
+    $removeSpan.append($removeButton);
     
-    var col2 = document.createElement("div");
-    col2.setAttribute("class", "col-lg-3");
+    $col1.append($inGroupA);
+    $col2.append($inGroupB);
+    $col3.append($inGroupC);
+    $col4.append($removeSpan);
     
-    var col3 = document.createElement("div");
-    col3.setAttribute("class", "col-lg-4");	
+    $row.append($col1, $col2, $col3, $col4);
     
-    var col4 = document.createElement("div");
-    col4.setAttribute("class", "col-lg-2");
-	
-    inGroupA.appendChild(nameLabel);
-    inGroupA.appendChild(nameField);
-    
-    inGroupB.appendChild(numLabel);
-    inGroupB.appendChild(numBoxes);
-    
-    inGroupC.appendChild(skillLabel);
-    inGroupC.appendChild(skillField);
-    
-    removeSpan.appendChild(removeButton);
-    
-    col1.appendChild(inGroupA);
-    col2.appendChild(inGroupB);
-    col3.appendChild(inGroupC);
-    col4.appendChild(removeSpan);
-    
-    row.appendChild(col1);
-    row.appendChild(col2);
-    row.appendChild(col3);
-    row.appendChild(col4);
-	
-    var body = document.getElementById("stress_tracks_body");
-    var btn = document.getElementById("add_track_button");
-    body.insertBefore(row, btn);
+    $("#add_track_button").before($row);
     
     incrementValue("num_stress_tracks");
     numTracks++;
 }
 
 function removeTrack(num) {
-    var row = document.getElementById("stress_track_row_" + num);
-    row.parentNode.removeChild(row);
+    $('#stress_track_row_' + num).remove();
+    
     for (x = num + 1; x < numTracks; x++) {
         var t = x-1;
         
-        var nRow = document.getElementById("stress_track_row_" + x);
-        nRow.setAttribute("id", "stress_track_row_" + t);
+        $('#stress_track_row_' + x).attr('id', 'stress_track_row_' + t);
         
-        var nameField = document.getElementById("stress_track_" + x + "_name");
-        nameField.setAttribute("name", "stress_track_" + t + "_name");
-        nameField.setAttribute("id", "stress_track_" + t + "_name");
+        $('#stress_track_' + x + '_name').attr({
+        	name: 'stress_track_' + t + '_name',
+        	id: 'stress_track_' + t + '_name'
+        });
         
-        var numBoxes = document.getElementById("stress_track_" + x + "_size")
-        numBoxes.setAttribute("name", "stress_track_" + t + "_size");
-        numBoxes.setAttribute("id", "stress_track_" + t + "_size");
+        $('#stress_track_' + x + '_size').attr({
+        	name: 'stress_track_' + t + '_size',
+        	id: 'stress_track_' + t + '_size'
+        });
         
-        var rmBtn = document.getElementById("remove_track_button_" + x);
-        rmBtn.setAttribute("id", "remove_track_" + t + "_button");
-        rmBtn.setAttribute("onClick", "removeTrack(" + t + ")");
-        
+        $('remove_track_button_' + x).attr({
+        	id: 'remove_track_' + t + '_button',
+        	onClick: 'removeTrack(' + t + ')'
+        });
     }
     decrementValue("num_stress_tracks");
     numTracks--;
 }
 
 function addConsequenceType() {
-	var row = document.createElement("div");
-	row.setAttribute("class", "row");
-	row.setAttribute("id", "consequences_row_" + numConsequenceTypes);
+	var $row = $("<div class='row' id='consequences_row_" + numConsequenceTypes + "'></div>");
+	var $col1 = $("<div class='col-lg-5'></div>");
+	var $inputGroup1 = $("<div class='input-group'></div>");
+	var $groupLabel = $("<span class='input-group-addon'>Group</span>");
+	var $groupNameInput = $("<input class='form-control' type='text' name='consequence_type_" 
+			+ numConsequenceTypes + "_name' id='consequence_type_" + numConsequenceTypes + "_name'>");
 	
-	var col1 = document.createElement("div");
-	col1.setAttribute("class", "col-lg-5");
+	var $col2 = $("<div class='col-lg-5'></div>");
+	var $inputGroup2 = $("<div class='input-group'></div>");
+	var $sizesLabel = $("<span class='input-group-addon'>Sizes</span>");
+	var $sizesInput = $("<input class='form-control' type='text' name='consequence_type_" +
+			+ numConsequenceTypes + "_sizes' id='consequence_type_" + numConsequenceTypes + "_sizes'>");
 	
-	var inputGroup1 = document.createElement("div");
-	inputGroup1.setAttribute("class", "input-group");
+	var $col3 = $("<div class='col-lg-2'></div>");
 	
-	var groupLabel = document.createElement("span");
-	groupLabel.setAttribute("class", "input-group-addon");
-	groupLabel.appendChild(document.createTextNode("Group"));
+	var $removeButtonSpan = $("<span class='input-group-btn'></span>");
+	var $removeButton = $("<button class='btn btn-default' type='button' onClick='removeConsequenceType(" +
+			numConsequenceTypes + ")' id='remove_consequence_type_" + numConsequenceTypes + "_button'>Remove</button>");
 	
-	var groupNameInput = document.createElement("input");
-	groupNameInput.setAttribute("class", "form-control");
-	groupNameInput.setAttribute("type", "text");
-	groupNameInput.setAttribute("name", "consequence_type_" + numConsequenceTypes + "_name");
-	groupNameInput.setAttribute("id", "consequence_type_" + numConsequenceTypes + "_name");
+	$row.append($col1);
+	$row.append($col2);
+	$row.append($col3);
 	
-	var col2 = document.createElement("div");
-	col2.setAttribute("class", "col-lg-5");
+	$col1.append($inputGroup1);
+	$col2.append($inputGroup2);
+	$col3.append($removeButtonSpan);
 	
-	var inputGroup2 = document.createElement("div");
-	inputGroup2.setAttribute("class", "input-group");
+	$inputGroup1.append($groupLabel);
+	$inputGroup1.append($groupNameInput);
 	
-	var sizesLabel = document.createElement("span");
-	sizesLabel.setAttribute("class", "input-group-addon");
-	sizesLabel.appendChild(document.createTextNode("Sizes"));
+	$inputGroup2.append($sizesLabel);
+	$inputGroup2.append($sizesInput);
 	
-	var sizesInput = document.createElement("input");
-	sizesInput.setAttribute("class", "form-control");
-	sizesInput.setAttribute("type", "text");
-	sizesInput.setAttribute("name", "consequence_type_" + numConsequenceTypes + "_sizes");
-	sizesInput.setAttribute("id", "consequence_type_" + numConsequenceTypes + "_sizes");
+	$removeButtonSpan.append($removeButton);
 	
-	var col3 = document.createElement("div");
-	col3.setAttribute("class", "col-lg-2");
-	
-	var removeButtonSpan = document.createElement("span");
-	removeButtonSpan.setAttribute("class", "input-group-btn");
-	
-	var removeButton = document.createElement("button");
-	removeButton.setAttribute("class", "btn btn-default");
-	removeButton.setAttribute("type", "button");
-	removeButton.setAttribute("onClick", "removeConsequenceType(" + numConsequenceTypes + ")");
-	removeButton.setAttribute("id", "remove_consequence_type_" + numConsequenceTypes + "_button");
-	removeButton.appendChild(document.createTextNode("Remove"));
-	
-	row.appendChild(col1);
-	row.appendChild(col2);
-	row.appendChild(col3);
-	
-	col1.appendChild(inputGroup1);
-	col2.appendChild(inputGroup2);
-	col3.appendChild(removeButtonSpan);
-	
-	inputGroup1.appendChild(groupLabel);
-	inputGroup1.appendChild(groupNameInput);
-	
-	inputGroup2.appendChild(sizesLabel);
-	inputGroup2.appendChild(sizesInput);
-	
-	removeButtonSpan.appendChild(removeButton);
-	
-    var body = document.getElementById("consequences_body");
-    var btn = document.getElementById("add_consequence_type_button");
-    body.insertBefore(row, btn);
+    $("#add_consequence_type_button").before($row);
     
     incrementValue("num_consequence_types");
     numConsequenceTypes++;
@@ -503,143 +378,74 @@ function toggleRequiresApprovalText() {
 	}
 }
 
-function fateCorePreset() {
-	replacePresetsLabel("Fate Core");
-	universalPresetCleanup(5, 18, 2, 1);
-	// Aspects
-	document.getElementById("aspect_type_0").value="High Concept";
-	document.getElementById("aspect_type_1").value="Trouble";
-	document.getElementById("aspect_type_2").value="Phase 1";
-	document.getElementById("aspect_type_3").value="Phase 2";
-	document.getElementById("aspect_type_4").value="Phase 3";
-	// Skills
-	document.getElementById("skill_name_0").value="Athletics";
-	document.getElementById("skill_name_1").value="Burglary";
-	document.getElementById("skill_name_2").value="Contacts";
-	document.getElementById("skill_name_3").value="Crafts";
-	document.getElementById("skill_name_4").value="Deceive";
-	document.getElementById("skill_name_5").value="Drive";
-	document.getElementById("skill_name_6").value="Empathy";
-	document.getElementById("skill_name_7").value="Fight";
-	document.getElementById("skill_name_8").value="Investigate";
-	document.getElementById("skill_name_9").value="Lore";
-	document.getElementById("skill_name_10").value="Notice";
-	document.getElementById("skill_name_11").value="Physique";
-	document.getElementById("skill_name_12").value="Provoke";
-	document.getElementById("skill_name_13").value="Rapport";
-	document.getElementById("skill_name_14").value="Resources";
-	document.getElementById("skill_name_15").value="Shoot";
-	document.getElementById("skill_name_16").value="Stealth";
-	document.getElementById("skill_name_17").value="Will";
-	skillArrangementChange("Pyramid");
-	document.getElementById("num_skill_points").value=20;
-	// Stress Tracks
-	document.getElementById("stress_track_0_name").value="Physical";
-	document.getElementById("stress_track_0_size").value=2;
-	document.getElementById("stress_track_0_skill").value="Physique";
-	document.getElementById("stress_track_1_name").value="Mental";
-	document.getElementById("stress_track_1_size").value=2;
-	document.getElementById("stress_track_1_skill").value="Will";
-	// Consequences
-	document.getElementById("consequence_type_0_name").value="Shared";
-	document.getElementById("consequence_type_0_sizes").value="-2, -4, -6";
-	// Stunts and Refresh
-	document.getElementById("pc_refresh").value="6";
-	document.getElementById("num_stunts").value="3";
-	document.getElementById("num_max_stunts").value="5";
-	
+var presetsTest;
+
+function getPresets() {
+	$.get('/presets/games/fate', function (data) {
+		presetsTest = data;
+	},
+	"json");
 }
 
-function fireflyPreset() {
-	replacePresetsLabel("Firefly");
-	universalPresetCleanup(5, 19, 2, 1);
-	// Aspects
-	document.getElementById("aspect_type_0").value="High Concept";
-	document.getElementById("aspect_type_1").value="Trouble";
-	document.getElementById("aspect_type_2").value="Role Amongst the Crew";
-	document.getElementById("aspect_type_3").value="Call of the Black";
-	document.getElementById("aspect_type_4").value="What Keeps You Grounded";
-	// Skills
-	document.getElementById("skill_name_0").value="Athletics";
-	document.getElementById("skill_name_1").value="Brawl";
-	document.getElementById("skill_name_2").value="Company";
-	document.getElementById("skill_name_3").value="Culture";
-	document.getElementById("skill_name_4").value="Doctor";
-	document.getElementById("skill_name_5").value="Fence";
-	document.getElementById("skill_name_6").value="Fly";
-	document.getElementById("skill_name_7").value="Hustle";
-	document.getElementById("skill_name_8").value="Inspect";
-	document.getElementById("skill_name_9").value="Instinct";
-	document.getElementById("skill_name_10").value="Mechanics";
-	document.getElementById("skill_name_11").value="Rob";
-	document.getElementById("skill_name_12").value="Physique";
-	document.getElementById("skill_name_13").value="Preach";
-	document.getElementById("skill_name_14").value="Provoke";
-	document.getElementById("skill_name_15").value="Shoot";
-	document.getElementById("skill_name_16").value="Stealth";
-	document.getElementById("skill_name_17").value="Will";
-	document.getElementById("skill_name_18").value="Read";
-	
-	skillArrangementChange("Pyramid");
-	document.getElementById("num_skill_points").value=20;
-	// Stress Tracks
-	document.getElementById("stress_track_0_name").value="Physical";
-	document.getElementById("stress_track_0_size").value=2;
-	document.getElementById("stress_track_0_skill").value="Physique";
-	document.getElementById("stress_track_1_name").value="Mental";
-	document.getElementById("stress_track_1_size").value=2;
-	document.getElementById("stress_track_1_skill").value="Will";
-	// Consequences
-	document.getElementById("consequence_type_0_name").value="Shared";
-	document.getElementById("consequence_type_0_sizes").value="-2, -4, -6";
-	// Stunts and Refresh
-	document.getElementById("pc_refresh").value="6";
-	document.getElementById("num_stunts").value="3";
-	document.getElementById("num_max_stunts").value="5";
+function implementPresetJSON(presetInfo) {
+	var preset = JSON.parse(presetInfo);
+	implementPreset(preset.label, preset.vars, preset.aspectTypes, preset.skillNames, preset.skillPoints, preset.skillArrangement, preset.stressTracks, preset.consequenceInfo, preset.refresh, preset.stuntInfo);
 }
 
-function kriegzeppelinPreset() {
-	replacePresetsLabel("Kriegzeppelin Valkyrie")
-	
-	universalPresetCleanup(5, 13, 2, 1);
-	// Aspects
-	document.getElementById("aspect_type_0").value="High Concept";
-	document.getElementById("aspect_type_1").value="Trouble";
-	document.getElementById("aspect_type_2").value="Free";
-	document.getElementById("aspect_type_3").value="Free";
-	document.getElementById("aspect_type_4").value="During Play";
-	// Skills
-	document.getElementById("skill_name_0").value="Athletics";
-	document.getElementById("skill_name_1").value="Deceive";
-	document.getElementById("skill_name_2").value="Empathy";
-	document.getElementById("skill_name_3").value="Fight";
-	document.getElementById("skill_name_4").value="Machinery";
-	document.getElementById("skill_name_5").value="Notice";
-	document.getElementById("skill_name_6").value="Physique";
-	document.getElementById("skill_name_7").value="Pilot";
-	document.getElementById("skill_name_8").value="Rapport";
-	document.getElementById("skill_name_9").value="Shoot";
-	document.getElementById("skill_name_10").value="Swagger";
-	document.getElementById("skill_name_11").value="Stealth";
-	document.getElementById("skill_name_12").value="Will";
-	
-	skillArrangementChange("Pyramid");
-	document.getElementById("num_skill_points").value=20;
-	// Stress Tracks
-	document.getElementById("stress_track_0_name").value="Physical";
-	document.getElementById("stress_track_0_size").value=2;
-	document.getElementById("stress_track_0_skill").value="Physique";
-	document.getElementById("stress_track_1_name").value="Mental";
-	document.getElementById("stress_track_1_size").value=2;
-	document.getElementById("stress_track_1_skill").value="Will";
-	// Consequences
-	document.getElementById("consequence_type_0_name").value="Shared";
-	document.getElementById("consequence_type_0_sizes").value="-2, -4, -6";
-	// Stunts and Refresh
-	document.getElementById("pc_refresh").value="6";
-	document.getElementById("num_stunts").value="3";
-	document.getElementById("num_max_stunts").value="5";
+function implementPreset(newLabel, presetVars, aspectTypes, skills, skillPoints, arrangement, stressTracks, consequences, refresh, stuntInfo) {
+	replacePresetsLabel(newLabel);
+	universalPresetCleanup(aspectTypes.length, skills.length, stressTracks.length, consequences.length);
+	for (i = 0; i < aspectTypes.length; i++) {
+		$("#aspect_type_" + i).val(aspectTypes[i]);
+	}
+	for (i = 0; i < skills.length; i++) {
+		$("#skill_name_" + i).val(skills[i]);
+	}
+	$("#num_skill_points").val(skillPoints);
+	skillArrangementChange(arrangement);
+	for (i = 0; i < stressTracks.length; i++) {
+		$("#stress_track_" + i + "_name").val(stressTracks[i].name);
+		$("#stress_track_" + i + "_size").val(stressTracks[i].size);
+		$("#stress_track_" + i + "_skill").val(stressTracks[i].skill);
+	}
+	for (i = 0; i < consequences.length; i++) {
+		$("#consequence_type_" + i + "_name").val(consequences[i].name);
+		$("#consequence_type_" + i + "_sizes").val(consequences[i].sizes);
+	}
+	$("#pc_refresh").val(refresh);
+	$("#num_stunts").val(stuntInfo[0]);
+	$("#num_max_stunts").val(stuntInfo[1]);
 }
+
+var fateCorePreset = '{"label": "Fate Core",' +
+'"aspectTypes": ["High Concept", "Trouble", "Phase 1", "Phase 2", "Phase 3"],' +
+'"skillNames": ["Athletics", "Burglary", "Contacts", "Crafts", "Deceive", "Drive", "Empathy", "Fight", "Investigate", "Lore", "Notice", "Physique", "Provoke", "Rapport", "Resources", "Shoot", "Stealth", "Will"],' +
+'"skillPoints": 20,' +
+'"skillArrangement": "Pyramid",' +
+'"stressTracks": [{"name": "Physical", "size": 2, "skill": "Physique"}, {"name": "Mental", "size": 2, "skill": "Will"}],' +
+'"consequenceInfo": [{"name": "Shared", "sizes": "-2, -4, -6"}],' +
+'"refresh": 6,' +
+'"stuntInfo": {"minStunts": 3, "maxStunts": 5}}';
+
+var fireflyPreset = '{"label": "Firefly",' +
+'"aspectTypes": ["High Concept", "Trouble", "Role Amongst the Crew", "Call of the Black", "What Keeps You Going"],' +
+'"skillNames": ["Athletics", "Brawl", "Company", "Culture", "Doctor", "Fence", "Fly", "Hustle", "Inspect", "Instinct", "Mechanics", "Rob", "Physique", "Preach", "Provoke", "Shoot", "Stealth", "Will", "Read"],' +
+'"skillPoints": 20,' +
+'"skillArrangement": "Pyramid",' +
+'"stressTracks": [{"name": "Physical", "size": 2, "skill": "Physique"}, {"name": "Mental", "size": 2, "skill": "Will"}],' +
+'"consequenceInfo": [{"name": "Shared", "sizes": "-2, -4, -6"}],' +
+'"refresh": 6,' +
+'"stuntInfo": {"minStunts": 3, "maxStunts": 5}}';
+
+var kriegzeppelinPreset = '{"label": "Kriegzeppelin Valkyrie",' +
+'"aspectTypes": ["High Concept", "Trouble", "Free", "Free", "During Play"],' +
+'"skillNames": ["Athletics", "Deceive", "Empathy", "Fight", "Machinery", "Notice", "Physique", "Pilot", "Rapport", "Shoot", "Swagger", "Stealth", "Will"],' +
+'"skillPoints": 20,' +
+'"skillArrangement": "Pyramid",' +
+'"stressTracks": [{"name": "Physical", "size": 2, "skill": "Physique"}, {"name": "Mental", "size": 2, "skill": "Will"}],' +
+'"consequenceInfo": [{"name": "Shared", "sizes": "-2, -4, -6"}],' +
+'"refresh": 6,' +
+'"stuntInfo": {"minStunts": 3, "maxStunts": 5}}';
 
 function universalPresetCleanup(presetNumAspects, presetNumSkills, presetNumTracks, presetNumConsequenceTypes) {
 	// Handles number of aspects
