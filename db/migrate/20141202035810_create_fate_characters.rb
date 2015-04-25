@@ -33,6 +33,14 @@ class CreateFateCharacters < ActiveRecord::Migration
         t.string :notes
         # Secret Notes - String, only visible to player and GM
         t.string :secret_notes
+        
+        ####################################
+       ## NOT YET IMPLEMENTED THINGS BELOW ##
+        ####################################
+       # Whether or not the character is visible to the public 
+       t.string :is_public
+       # Whether or not the character is an NPC
+       t.string :is_npc      
       end
   end
 end

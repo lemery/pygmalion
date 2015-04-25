@@ -36,6 +36,12 @@ class CreateFateGames < ActiveRecord::Migration
       t.integer :skill_points
       # String of the skill arrangement requirement. Can be Pyramid, Column, or Free
       t.string :skill_arrangement
+      
+       ####################################
+      ## NOT YET IMPLEMENTED THINGS BELOW ##
+       ####################################
+      # Whether or not the game is visible to the public 
+      t.string :is_public      
     end
   end
 end
