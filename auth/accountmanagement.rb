@@ -37,6 +37,7 @@ module Sinatra
             log_in(login_attempt)
             redirect to("/")
           else
+            flash[:incorrect] = "Username or password invalid"
             redirect to('/auth/login')
           end
         else
