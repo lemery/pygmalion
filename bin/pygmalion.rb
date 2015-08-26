@@ -5,17 +5,18 @@ require 'bcrypt'
 require 'json'
 require 'sinatra/content_for'
 
-require_relative 'auth/functions'
-require_relative 'auth/accountmanagement'
+require_relative '../lib/auth/auth_functions'
+require_relative '../lib/auth/account_management'
 
-require_relative 'games/fategames'
+require_relative '../lib/games/fate_game_functions'
+require_relative '../lib/games/fate_games'
 
-require_relative 'characters/fatecharacters'
+require_relative '../lib/characters/fate_characters'
 
 Bundler.require
 
-require './models/User'
-require './models/FateGame'
+require '../lib/db/models/User'
+require '../lib/db/models/FateGame'
 
 enable :sessions
   

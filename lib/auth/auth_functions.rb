@@ -1,7 +1,7 @@
 require 'sinatra/base'
 
 module Sinatra
-  module UserFunctions
+  module AuthFunctions
     def username
       return session[:username]
     end
@@ -145,5 +145,5 @@ module Sinatra
     end
   end
   
-  helpers UserFunctions
+  helpers AuthFunctions
 end
