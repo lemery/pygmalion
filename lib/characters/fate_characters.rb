@@ -5,7 +5,7 @@ module Sinatra
     module FateCharacters
       def self.registered(app)
         app.get '/make/character/fate' do
-          erb :fatechar
+          erb :'chars/fate_char'
         end
       end
     end

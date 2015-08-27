@@ -143,6 +143,14 @@ module Sinatra
       end
       return false
     end
+    
+    def create_game (parameters)
+      user = User.new
+      user.username = "#{parameters[:user_name]}"
+      user.password = BCrypt::Password.create("#{parameters[:user_password]}") 
+      user.global_admin = user.username == "Admin"
+      user.save
+    end
   end
   
   helpers AuthFunctions

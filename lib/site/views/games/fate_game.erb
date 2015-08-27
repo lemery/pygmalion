@@ -7,6 +7,12 @@
 <% end %>
 <% end %>
 
+
+	
+<% content_for :more_js do %>
+<script src="/js/games/fate_game.js"></script>
+<% end %>
+
 <% content_for :extra_css do %>
 <% if @task == "View"%>
 .panel-body {
@@ -550,8 +556,4 @@ td > .row {
 	</div>
 <% if @task == "Make" %>
 </form>
-<% end %>
-	
-<% content_for :more_js do %>
-<script src="/js/fateGame.js"></script>
 <% end %>

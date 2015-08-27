@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :username
       # Actually a BCrypt password
       t.string :password
-      t.boolean :globalAdmin
+      t.boolean :global_admin
     end
    end
 end

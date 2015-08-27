@@ -15,8 +15,8 @@ require_relative '../lib/characters/fate_characters'
 
 Bundler.require
 
-require '../lib/db/models/User'
-require '../lib/db/models/FateGame'
+require_relative '../lib/db/models/User'
+require_relative '../lib/db/models/FateGame'
 
 enable :sessions
   
@@ -31,18 +31,13 @@ configure :development do
   use BetterErrors::Middleware
   # you need to set the application root in order to abbreviate filenames
   # within the application:
-  BetterErrors.application_root = File.expand_path('..', __FILE__)
+  BetterErrors.application_root = File.expand_path('../..', __FILE__)
 end
-  
-if ENV['DATABASE_URL']
-  ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
-else
-  ActiveRecord::Base.establish_connection(
-    :adapter => 'sqlite3',
-    :database => 'db/development.db',
-    :encoding => 'utf8'
-  )
-end
+
+set :app_file, __FILE__
+set :root, File.expand_path('../..', __FILE__)
+set :public_dir, Proc.new { File.join(root, '/lib/site') }
+set :views, Proc.new { File.join(root, '/lib/site/views') }
   
 get '/' do
   redirect to('/view/games')

@@ -8,7 +8,7 @@ module Sinatra
         # Route for handling GET requests for the game-making page
         app.get '/make/game/fate' do
           @task = "Make"
-          erb :fate_game
+          erb :'games/fate_game'
         end
         
         # Route for handling posts to make a Fate game
@@ -18,7 +18,7 @@ module Sinatra
             redirect_url = "/view/games/fate/" + name
             redirect to(redirect_url)
           else 
-            erb :restricted  
+            erb :'auth/restricted'  
           end
         end
         
@@ -44,7 +44,7 @@ module Sinatra
           # If the game does not exist, say that
           else
             @name = params[:game_name]
-            erb :no_game
+            erb :'games/no_game'
           end
         end
       
@@ -54,13 +54,13 @@ module Sinatra
             @task = "View"
             @game = FateGame.where(name: "#{params[:gamename]}").first()
             @permissions = "Edit"
-            # This doesn't appear to do anything, but not deleting it just yet
+            # This doesn't appear to do anything, but not deleting it just yet,
             # just in case
             # currViewerID = User.where(:username => session[:username]).first().id
-            erb :fate_game
+            erb :'games/fate_game'
           else
             @name = "\"#{params[:game_name]}\""
-            erb :no_game
+            erb :'games/no_game'
           end
         end
         
@@ -79,10 +79,10 @@ module Sinatra
             else
               @permissions = "View"
             end
-            erb :fate_game
+            erb :'games/fate_game'
           else
             @name = "\"#{params[:gamename]}\""
-            erb :no_game 
+            erb :'games/no_game'
           end
         end
            

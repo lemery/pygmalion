@@ -4,7 +4,7 @@ module Sinatra
   module AccountManagement
     def self.registered(app)
       app.get '/auth/signup' do
-        erb :signup
+        erb :'auth/signup'
       end
       
       app.post '/auth/signup' do
@@ -14,11 +14,7 @@ module Sinatra
           if User.exists?(:username => "#{params[:user_name]}")
             flash[:username_taken] = "Username already taken"
           else
-            user = User.new
-            user.username = "#{params[:user_name]}"
-            user.password = BCrypt::Password.create("#{params[:user_password]}") 
-            user.globalAdmin = user.username == "Admin"
-            user.save
+            create_user(params)
             log_in(user)
             redirect to('/')
           end
@@ -27,7 +23,7 @@ module Sinatra
       end
       
       app.get '/auth/login' do
-        erb :login
+        erb :'auth/login'
       end
       
       app.post '/auth/login' do
@@ -54,7 +50,7 @@ module Sinatra
       end
       
       app.get '/auth/restricted' do
-        erb :restricted
+        erb :'auth/restricted'
       end
     end
   end
