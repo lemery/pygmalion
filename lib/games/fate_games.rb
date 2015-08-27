@@ -91,7 +91,7 @@ module Sinatra
           @system_names = ["Fate"]
           @games = []
           @games.push(FateGame.count > 0 ? FateGame.order(:name).limit(10) : false)
-          erb :view_games
+          erb :'games/view_games'
         end
         
         # Tells the browser what the Fate game presets are
