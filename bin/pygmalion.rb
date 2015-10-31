@@ -4,6 +4,9 @@ require 'sinatra'
 require 'bcrypt'
 require 'json'
 require 'sinatra/content_for'
+require 'sass'
+require 'sass/plugin/rack'
+require 'bootstrap-sass'
 
 require_relative '../lib/auth/auth_functions'
 require_relative '../lib/auth/account_management'
@@ -38,6 +41,11 @@ set :app_file, __FILE__
 set :root, File.expand_path('../..', __FILE__)
 set :public_dir, Proc.new { File.join(root, '/lib/site') }
 set :views, Proc.new { File.join(root, '/lib/site/views') }
+
+# Sass inclusion
+Sass::Plugin.options[:style] = :compressed
+Sass::Plugin.options[:css_location] = '../lib/site/css'
+use Sass::Plugin::Rack
   
 get '/' do
   redirect to('/view/games')

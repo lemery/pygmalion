@@ -1,5 +1,7 @@
 .bundle
 .buildpath
 .project
+.sass-cache
 development.db
 database.yml
+*.css.map

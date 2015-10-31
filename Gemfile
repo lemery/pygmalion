@@ -9,6 +9,8 @@ gem 'sinatra-flash'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'json'
 gem 'pg'  
+gem 'sass'
+gem 'bootstrap-sass'
 
 group :development do
 	gem 'shotgun', '>= 0.9'

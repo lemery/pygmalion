@@ -30,3 +30,8 @@ task :environment do
   ActiveRecord::Base.configurations = DatabaseTasks.database_configuration
   ActiveRecord::Base.establish_connection DatabaseTasks.env.to_sym
 end
+
+# watch sass
+task :sass do
+  system "sass --watch lib/site/css/sass:lib/site/css"
+end
